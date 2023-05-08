@@ -1,0 +1,14 @@
+.rules {
+    width: 90%;
+}
+
+.rules ul {
+    font-size: 18px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.rules h1 {
+    text-align: center;
+    font-size: 45px;
+}

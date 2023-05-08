@@ -1,0 +1,42 @@
+.modal-content {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+    border: 1px solid var(--DarkBlue) !important;
+    border-radius: 3rem !important;
+    box-shadow: 0 0 40px var(--DarkBlue) !important;
+    background-color: var(--Black) !important;
+    font-family: monospace !important;
+    color: var(--White) !important;
+    width: 500px !important;
+}
+
+.custom-position {
+    margin-top: -50px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.modalBtn {
+    width: 100px;
+    height: 35px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: var(--main-Border);
+    background-color: var(--Pink);
+    border-radius: 3rem;
+    transition: all .5s cubic-bezier(.79, -1, .37, 2);
+}
+
+.modalBtn:hover {
+    background-color: var(--RedBrown);
+    color: var(--White);
+    transform: scale(1.2);
+}
+
+.modal-content img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+}

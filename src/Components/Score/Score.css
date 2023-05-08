@@ -1,0 +1,42 @@
+.score {
+    position: relative;
+    width: 100%;
+}
+
+.score h1 {
+    text-align: center;
+    font-size: 45px;
+}
+
+.score h3 {
+    text-align: center;
+    font-size: 30px;
+}
+
+.score p {
+    position: absolute;
+    animation: .7s fadeIn linear;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 100%;
+    }
+}
+
+.score select {
+    border: var(--main-Border);
+    width: 200px;
+    height: 40px;
+    border-radius: 3rem;
+    background-color: var(--Pink);
+    text-align: center;
+}
+
+.score select option {
+    background-color: var(--Pink);
+}
+

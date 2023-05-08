@@ -1,3 +1,76 @@
+## DEATH WALK
+
+# Developed By
+
+MILES BREMAN
+
+# Description
+
+- This game was created for the purposes of learning and growing as a developer. I utilized React Typescript (more information below) to develop the logic behind the game to excercise/showcase my development capabilities with these technologies. 
+
+- The game is called death crawl, and it is played on a 50 x 50 grid. Starting from the top left a player will attempt to traverse the grid, and if they make it to the bottom right they win the game. A player is given pre-define health and moves to attempt there journey to the other side of the game board. Throughout the grid; there is equal parts 'blank', 'lava', 'speeder', and 'mud' squares. There is varying reprecussions for landing on each square, and those reprecussions are defined as such: 
+
+    * blank: health = 0 / moves = -1
+    * speeder: health = -5 / moves = 0
+    * lava: health = -50 / moves = -10
+    * mud: health = -10 / moves = -5
+
+# Stucture
+
+- .env - Defines the port that the app will run on locally, the width used for (number of squares)^2, health, and moves 
+
+- src/App.test.tsx - Tests for all functions used within the application (npm test).
+
+- src/App.tsx - Parent component of the project.
+
+- src/App.css - Parent stlyesheet of the project.
+
+- src/Components/Game - Acts as the home/splash component of the project.
+
+- src/Components/Rules - Responsible for displaying and defining the game rules.
+
+- src/Components/Score - Responsible for displaing and deciphering the game score.
+
+- src/Components/Squares - Responsible for displaying and rendering the squares on the game board.
+
+- src/Components/BugReportModal - Displays the bug reporter
+
+- src/Components/ResultModals - displays the win or lose modals
+
+# License
+
+MIT License
+
+Copyright (c) 2023 Death Walk
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+# Dependencies 
+
+- create-react-app my-app --template typescript
+- ypescript @types/node @types/react @types/react-dom @types/jest
+- react-router-dom
+- react-bootstrap
+- bootstrap
+
+#########################################################################################################################
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
