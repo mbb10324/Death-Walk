@@ -64,12 +64,10 @@ SOFTWARE.
 ## Dependencies 
 
 - create-react-app my-app --template typescript
-- ypescript @types/node @types/react @types/react-dom @types/jest
+- typescript @types/node @types/react @types/react-dom @types/jest
 - react-router-dom
 - react-bootstrap
 - bootstrap
-
-#########################################################################################################################
 
 # Getting Started with Create React App
 
