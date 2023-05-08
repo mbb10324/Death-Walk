@@ -1,29 +1,37 @@
 import './Squares.css';
+import { useRef, useEffect, useState } from 'react';
 
 type Props = { gameArray: string[] };
 
 function Squares(props: Props) {
-
-    //create grid properties
-    const { gameArray } = props
+    const { gameArray } = props;
+    const getGridSizeRef = useRef<HTMLDivElement>(null);
     const numRows = Math.ceil(Math.sqrt(gameArray.length));
-    const squareSize = `${900 / numRows}px`;
+    const [squareSize, setSquareSize] = useState<string>('');
+
+    useEffect(() => {
+        const getGridSize = getGridSizeRef.current;
+        if (getGridSize instanceof HTMLElement) {
+            const squareSize = `${Number(getGridSize.clientWidth) / numRows}px`;
+            setSquareSize(squareSize);
+        }
+    }, [getGridSizeRef, numRows]);
 
     return (
-        <div className='grid-container' style={{
-            //dynamically set the square sizes
-            gridTemplateColumns: `repeat(${numRows}, ${squareSize})`,
-            gridTemplateRows: `repeat(${numRows}, ${squareSize})`
-        }}>
-            {/* this is where our squares are actually placed */}
+        <div
+            ref={getGridSizeRef}
+            className='grid-container'
+            style={{
+                gridTemplateColumns: `repeat(${numRows}, ${squareSize})`,
+                gridTemplateRows: `repeat(${numRows}, ${squareSize})`,
+            }}
+        >
             {gameArray.map((square, index) => {
-                return (
-                    <div id={(index).toString()} className={square}></div>
-                )
+                return <div key={index} id={index.toString()} className={square} />;
             })}
         </div>
     );
-};
+}
 
 export default Squares;
 
