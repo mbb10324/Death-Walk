@@ -1,10 +1,10 @@
-## DEATH WALK
+# DEATH WALK
 
-# Developed By
+## Developed By
 
 MILES BREMAN
 
-# Description
+## Description
 
 - This game was created for the purposes of learning and growing as a developer. I utilized React Typescript (more information below) to develop the logic behind the game to excercise/showcase my development capabilities with these technologies. 
 
@@ -15,7 +15,7 @@ MILES BREMAN
     * lava: health = -50 / moves = -10
     * mud: health = -10 / moves = -5
 
-# Stucture
+## Stucture
 
 - .env - Defines the port that the app will run on locally, the width used for (number of squares)^2, health, and moves 
 
@@ -37,7 +37,7 @@ MILES BREMAN
 
 - src/Components/ResultModals - displays the win or lose modals
 
-# License
+## License
 
 MIT License
 
@@ -61,7 +61,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-# Dependencies 
+## Dependencies 
 
 - create-react-app my-app --template typescript
 - ypescript @types/node @types/react @types/react-dom @types/jest
