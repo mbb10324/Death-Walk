@@ -5,6 +5,7 @@ import winner from '../../images/winner.gif';
 import './ResultModals.css';
 
 type Props = {
+    setGameArray: React.Dispatch<React.SetStateAction<string[]>>;
     showLose: boolean;
     setShowLose: React.Dispatch<React.SetStateAction<boolean>>;
     showWin: boolean;
@@ -13,9 +14,17 @@ type Props = {
 }
 
 function Modals(props: Props) {
-    const { showLose, setShowLose, showWin, setShowWin, setGameEnded } = props; //define props
-    function closeLose() { setShowLose(!showLose); setGameEnded(false) }; //func to close loser modal
-    function closeWin() { setShowWin(!showWin); setGameEnded(false) }; //func to close winner modal
+    const { setGameArray, showLose, setShowLose, showWin, setShowWin, setGameEnded } = props; //define props
+    function closeLose() { 
+        setShowLose(!showLose); 
+        setGameEnded(false);
+        setGameArray([])
+    }; //func to close loser modal
+    function closeWin() { 
+        setShowWin(!showWin); 
+        setGameEnded(false);
+        setGameArray([])
+    }; //func to close winner modal
 
     //pick a random gif to show the user
     function randomDeathGif() {

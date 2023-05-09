@@ -32,6 +32,7 @@ window.hardMoves = Number(process.env.REACT_APP_HARD_MOVES)
 
 //define types of squares
 export const squareDefinitions: SquareDefinitions = {
+    'player': {moves: 0, health: 0},
     'end': { moves: 0, health: 0 },
     'visited': { moves: 0, health: 0 },
     'blank': { moves: -1, health: 0 },

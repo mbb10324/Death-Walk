@@ -1,21 +1,30 @@
 import './Score.css';
 import { useEffect, useState } from 'react';
-import { updateScore, useMount, isGameOver } from '../../Helpers/Utils';
+import { isGameOver } from '../../Helpers/Utils';
 import Modals from '../ResultModals/ResultModals'
 
 type Props = {
-    gameArray: string[];
+    scoreStuff: ScoreStuff;
+    healthPoints: number;
+    moves: number;
+    setHealthPoints: React.Dispatch<React.SetStateAction<number>>;
+    setMoves: React.Dispatch<React.SetStateAction<number>>;
+    setGameArray: React.Dispatch<React.SetStateAction<string[]>>;
     playerIndex: number;
     setPlayerIndex: React.Dispatch<React.SetStateAction<number>>;
     setGameEnded: React.Dispatch<React.SetStateAction<boolean>>;
     setWidth: React.Dispatch<React.SetStateAction<number>>;
 }
 
+interface ScoreStuff {
+    remainingMoves: number;
+    remainingHealth: number;
+    newSquare: string;
+  }
+
 function Score(props: Props) {
-    const { gameArray, playerIndex, setPlayerIndex, setGameEnded, setWidth } = props; //define props
-    const mounted = useMount(); //custom hook to check for initial mount
-    const [healthPoints, setHealthPoints] = useState<number>(window.mediumHealth); //state to hold health points
-    const [moves, setMoves] = useState<number>(window.mediumMoves); //state to hold moves
+    const { scoreStuff, healthPoints, moves, playerIndex, setHealthPoints, setMoves, setGameArray, setPlayerIndex, setGameEnded, setWidth } = props; //define props
+    const { remainingMoves, remainingHealth, newSquare } = scoreStuff;
     const [gamesPlayed, setGamesPlayed] = useState<number>(0); //state to hold number of game played
     const [loses, setLoses] = useState<number>(0); //state to hold number of loses
     const [wins, setWins] = useState<number>(0); //state to hold number of wins
@@ -25,22 +34,18 @@ function Score(props: Props) {
 
     //triggered each time a player moves, but not on mount
     useEffect(() => {
-        if (mounted) {
-            //returns new scores and square
-            const newScore = updateScore(healthPoints, moves, playerIndex, gameArray);
             //checks to see if game has ended
-            const gameOver = isGameOver(newScore.remainingMoves, newScore.remainingHealth, newScore.newSquare)
+            const gameOver = isGameOver(remainingMoves, remainingHealth, newSquare)
             if (gameOver.result === 'loser') { resetGame(); setLoses(loses + 1); setShowLose(true) }
             else if (gameOver.result === 'winner') { resetGame(); setWins(wins + 1); setShowWin(true) }
-            else { setHealthPoints(newScore.remainingHealth); setMoves(newScore.remainingMoves) }
-        }
+            else { setHealthPoints(remainingHealth); setMoves(remainingMoves) }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playerIndex]);
 
     function resetGame() {
-        if (difficulty === 'easy') easyGame()
-        if (difficulty === 'medium') mediumGame()
-        if (difficulty === 'hard') hardGame()
+        if (difficulty === 'easy') easyGame();
+        if (difficulty === 'medium') mediumGame();
+        if (difficulty === 'hard') hardGame();
         setGamesPlayed(gamesPlayed + 1);
         setPlayerIndex(0);
         setGameEnded(true);
@@ -69,6 +74,7 @@ function Score(props: Props) {
 
     function hardGame() {
         setDifficulty('hard')
+        setGameArray([])
         setWidth(window.hardWidth)
         setHealthPoints(window.hardHealth)
         setMoves(window.hardMoves)
@@ -79,6 +85,7 @@ function Score(props: Props) {
         setWins(0)
         setLoses(0)
         setPlayerIndex(0)
+        setGameArray([])
     }
 
     return (
@@ -102,7 +109,7 @@ function Score(props: Props) {
                 {playerIndex !== 0 ? <p>you can change difficulty after the round ends.</p> : ''}
             </div>
             {/* call to modals component with passed in information to track result of the game */}
-            <Modals showLose={showLose} setShowLose={setShowLose} showWin={showWin} setShowWin={setShowWin} setGameEnded={setGameEnded} />
+            <Modals setGameArray={setGameArray} showLose={showLose} setShowLose={setShowLose} showWin={showWin} setShowWin={setShowWin} setGameEnded={setGameEnded} />
         </>
     );
 };
