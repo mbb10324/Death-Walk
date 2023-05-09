@@ -31,7 +31,9 @@ MILES BREMAN
 
 - src/Components/Score - Responsible for displaing and deciphering the game score.
 
-- src/Components/Squares - Responsible for displaying and rendering the squares on the game board.
+- src/Components/Grid - Responsible for building the grid.
+
+- src/Components/Square - Responsible for building the squares.
 
 - src/Components/BugReportModal - Displays the bug reporter
 

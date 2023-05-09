@@ -1,21 +1,30 @@
 .score {
     position: relative;
     width: 100%;
+    overflow: hidden;
+    padding-bottom: 15%;
 }
 
 .score h1 {
     text-align: center;
     font-size: 45px;
+    margin-bottom: 2%;
 }
 
 .score h3 {
     text-align: center;
     font-size: 30px;
+    margin-bottom: 1%;
+    margin-top: 2%;
 }
 
 .score p {
     position: absolute;
+    right: 0px;
+    top: 90%;
     animation: .7s fadeIn linear;
+    width: 100%;
+    overflow-wrap: break-word;
 }
 
 @keyframes fadeIn {
@@ -29,7 +38,7 @@
 
 .score select {
     border: var(--main-Border);
-    width: 200px;
+    width: 50%;
     height: 40px;
     border-radius: 3rem;
     background-color: var(--Pink);

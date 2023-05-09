@@ -11,16 +11,15 @@ import Rules from '../Rules/Rules';
 function Game() {
     const [width, setWidth] = useState<number>(window.mediumWidth); //state to track width relative to difficulty
     const [healthPoints, setHealthPoints] = useState<number>(window.mediumHealth); //state to hold health points
-    const healthPointRef = useRef(0);
-    healthPointRef.current = healthPoints;
+    const healthPointRef = useRef(0); //ref to remember previous health points
+    healthPointRef.current = healthPoints; //link ref and state
     const [moves, setMoves] = useState<number>(window.mediumMoves); //state to hold moves
-    const movesRef = useRef(0);
-    movesRef.current = moves;
+    const movesRef = useRef(0); //ref to remember previous moves
+    movesRef.current = moves; //link ref and state
     const [gameArray, setGameArray] = useState<string[]>([]); //holds all classnames of the game in an array
     const [playerIndex, setPlayerIndex] = useState<number>(0); //players current index in the game array
     const [gameEnded, setGameEnded] = useState<boolean>(false); //will trigger to true after game ends, and false while game is being played
-    const [showBugReport, setShowBugReport] = useState(false); //bool state to toggle bug report modal
-    const [scoreStuff, setScoreStuff] = useState({ remainingMoves: window.mediumMoves, remainingHealth: window.mediumHealth, newSquare: '' });
+    const [scoreStuff, setScoreStuff] = useState({ remainingMoves: window.mediumMoves, remainingHealth: window.mediumHealth, newSquare: '' }); //constructs object to pass to score component
 
     //triggered after each game ends, and on mount
     useEffect(() => {
@@ -35,18 +34,26 @@ function Game() {
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameEnded, width]);
 
+    //called after each arrow key is pressed
     function keyPress(event: KeyboardEvent<HTMLInputElement>) {
-        setPlayerIndex(prevplayerIndex => {
-            const oldIndex = prevplayerIndex;
-            const newIndex = findIndex(event.key, oldIndex, width);
-            setGameArray(prevGameArray => {
-                const newScore = updateScore(healthPointRef.current, movesRef.current, newIndex, prevGameArray);
-                setScoreStuff(newScore);
-                const updatedArray = updateGameArray(prevGameArray, newIndex);
-                return updatedArray;
-            });
-            return newIndex;
-        });
+        //only fire on arrow keys
+        switch (event.key) {
+            case 'ArrowUp': case 'ArrowDown': case 'ArrowRight': case 'ArrowLeft':
+                //start with player index
+                setPlayerIndex(prevplayerIndex => {
+                    const oldIndex = prevplayerIndex;
+                    const newIndex = findIndex(event.key, oldIndex, width);
+                    //update game array asynchronously with playerIndex
+                    setGameArray(prevGameArray => {
+                        const newScore = updateScore(healthPointRef.current, movesRef.current, newIndex, prevGameArray);
+                        //update score asynchornously with gameArray
+                        setScoreStuff(newScore);
+                        const updatedArray = updateGameArray(prevGameArray, newIndex);
+                        return updatedArray;
+                    });
+                    return newIndex;
+                });
+        };
     };
 
     return (
@@ -59,23 +66,23 @@ function Game() {
             </div>
             {/* calls the component that builds the squares */}
             <Squares gameArray={gameArray} />
-            {/* contains the call to score component and license/contact info */}
+            {/* contains the call to score and bug report components; and license/contact info */}
             <div className='right-container'>
                 <Score
                     scoreStuff={scoreStuff}
                     healthPoints={healthPoints}
                     moves={moves}
+                    playerIndex={playerIndex}
                     setHealthPoints={setHealthPoints}
                     setMoves={setMoves}
                     setGameArray={setGameArray}
-                    playerIndex={playerIndex}
                     setPlayerIndex={setPlayerIndex}
                     setGameEnded={setGameEnded}
-                    setWidth={setWidth} />
+                    setWidth={setWidth}
+                />
                 <img src={skull} alt='' />
                 <h3>Good Luck!</h3>
-                <button onClick={() => setShowBugReport(true)}>Report Bugs</button>
-                <BugReporter showBugReport={showBugReport} setShowBugReport={setShowBugReport} />
+                <BugReporter />
                 <p>Copyright (c) 2023 Death Walk</p>
                 <p>&larr; Escape death here on the pink square</p>
             </div>

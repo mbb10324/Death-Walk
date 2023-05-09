@@ -1,7 +1,7 @@
 import './Score.css';
 import { useEffect, useState } from 'react';
 import { isGameOver } from '../../Helpers/Utils';
-import Modals from '../ResultModals/ResultModals'
+import Modals from '../ResultModals/ResultModals';
 
 type Props = {
     scoreStuff: ScoreStuff;
@@ -14,13 +14,13 @@ type Props = {
     setPlayerIndex: React.Dispatch<React.SetStateAction<number>>;
     setGameEnded: React.Dispatch<React.SetStateAction<boolean>>;
     setWidth: React.Dispatch<React.SetStateAction<number>>;
-}
+};
 
 interface ScoreStuff {
     remainingMoves: number;
     remainingHealth: number;
     newSquare: string;
-  }
+};
 
 function Score(props: Props) {
     const { scoreStuff, healthPoints, moves, playerIndex, setHealthPoints, setMoves, setGameArray, setPlayerIndex, setGameEnded, setWidth } = props; //define props
@@ -30,15 +30,15 @@ function Score(props: Props) {
     const [wins, setWins] = useState<number>(0); //state to hold number of wins
     const [showLose, setShowLose] = useState<boolean>(false); //bool state for showing loser modal
     const [showWin, setShowWin] = useState<boolean>(false); //bool state for showing winner modal
-    const [difficulty, setDifficulty] = useState<string>('medium')
+    const [difficulty, setDifficulty] = useState<string>('medium');
 
     //triggered each time a player moves, but not on mount
     useEffect(() => {
-            //checks to see if game has ended
-            const gameOver = isGameOver(remainingMoves, remainingHealth, newSquare)
-            if (gameOver.result === 'loser') { resetGame(); setLoses(loses + 1); setShowLose(true) }
-            else if (gameOver.result === 'winner') { resetGame(); setWins(wins + 1); setShowWin(true) }
-            else { setHealthPoints(remainingHealth); setMoves(remainingMoves) }
+        //checks to see if game has ended
+        const gameOver = isGameOver(remainingMoves, remainingHealth, newSquare)
+        if (gameOver.result === 'loser') { resetGame(); setLoses(loses + 1); setShowLose(true) }
+        else if (gameOver.result === 'winner') { resetGame(); setWins(wins + 1); setShowWin(true) }
+        else { setHealthPoints(remainingHealth); setMoves(remainingMoves) }
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [playerIndex]);
 
@@ -49,44 +49,44 @@ function Score(props: Props) {
         setGamesPlayed(gamesPlayed + 1);
         setPlayerIndex(0);
         setGameEnded(true);
-    }
+    };
 
     function selectDifficulty(event: React.ChangeEvent<HTMLSelectElement>) {
-        if (event.target.value === 'easy') { easyGame(); resetZeros() } 
-        else if (event.target.value === 'medium') { mediumGame(); resetZeros() } 
+        if (event.target.value === 'easy') { easyGame(); resetZeros() }
+        else if (event.target.value === 'medium') { mediumGame(); resetZeros() }
         else if (event.target.value === 'hard') { hardGame(); resetZeros() }
         else { alert("umm this is awkward, lets reset the game"); window.location.reload() }
-    }
+    };
 
     function easyGame() {
-        setDifficulty('easy')
-        setWidth(window.easyWidth)
-        setHealthPoints(window.easyHealth)
-        setMoves(window.easyMoves)
-    }
+        setDifficulty('easy');
+        setWidth(window.easyWidth);
+        setHealthPoints(window.easyHealth);
+        setMoves(window.easyMoves);
+    };
 
     function mediumGame() {
-        setDifficulty('medium')
-        setWidth(window.mediumWidth)
-        setHealthPoints(window.mediumHealth)
-        setMoves(window.mediumMoves)
-    }
+        setDifficulty('medium');
+        setWidth(window.mediumWidth);
+        setHealthPoints(window.mediumHealth);
+        setMoves(window.mediumMoves);
+    };
 
     function hardGame() {
-        setDifficulty('hard')
-        setGameArray([])
-        setWidth(window.hardWidth)
-        setHealthPoints(window.hardHealth)
-        setMoves(window.hardMoves)
-    }
+        setDifficulty('hard');
+        setGameArray([]);
+        setWidth(window.hardWidth);
+        setHealthPoints(window.hardHealth);
+        setMoves(window.hardMoves);
+    };
 
     function resetZeros() {
-        setGamesPlayed(0)
-        setWins(0)
-        setLoses(0)
-        setPlayerIndex(0)
-        setGameArray([])
-    }
+        setGamesPlayed(0);
+        setWins(0);
+        setLoses(0);
+        setPlayerIndex(0);
+        setGameArray([]);
+    };
 
     return (
         <>

@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 :root {
@@ -23,6 +24,6 @@
     font-family: monospace;
     color: var(--Black);
     height: 100vh;
+    min-height: 100%;
     width: 100vw;
-    overflow: hidden;
 }

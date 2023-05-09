@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import { Modal, Form } from 'react-bootstrap';
 import './BugReportModal.css';
 
-type Props = {
-    showBugReport: boolean,
-    setShowBugReport: React.Dispatch<React.SetStateAction<boolean>>
-};
-
-function BugReportButton(props: Props) {
-    const {showBugReport, setShowBugReport} = props; //props for bool state to show the modal
+function BugReportButton() {
     const [formFields, setFormFields] = useState({ title: '', description: '', email: '' }); //holds form entries
+    const [showBugReport, setShowBugReport] = useState(false); //bool state to toggle bug report modal
 
     //called after submit button is pressed
     function submitBugs(event: React.FormEvent<HTMLFormElement>) {
@@ -27,6 +22,7 @@ function BugReportButton(props: Props) {
 
     return (
         <>
+            <button onClick={() => setShowBugReport(true)}>Report Bugs</button>
             <Modal show={showBugReport} onHide={() => setShowBugReport(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Report a bug</Modal.Title>

@@ -6,19 +6,6 @@ test('[buildGameArray] returns array of strings', () => {
     expect(result.length).toEqual(2500)
 })
 
-// test('[defineSquareParams] number of square equals game array length', () => {
-//     const gameArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-//     const { squaresArray } = buildSquares(gameArray);
-//     expect(squaresArray.length).toBe(gameArray.length);
-// });
-
-// test('[defineSquareParams] calculates the correct number of rows and square size', () => {
-//     const gameArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-//     const { numRows, squareSize } = buildSquares(gameArray);
-//     expect(numRows).toBe(3);
-//     expect(squareSize).toBe('300px');
-// });
-
 test('[findIndex] reached the border of the board', () => {
     const key = 'ArrowUp';
     let testIndex = 0;
