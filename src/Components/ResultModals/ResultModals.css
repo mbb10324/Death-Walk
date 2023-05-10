@@ -11,6 +11,10 @@
     width: 500px !important;
 }
 
+.modal-header {
+    border-bottom: 1px solid var(--RedBrown) !important;
+  }
+
 .custom-position {
     margin-top: -50px !important;
     display: flex !important;
