@@ -4,10 +4,11 @@ import './Square.css'
 interface SquareProps {
     id: string;
     className: string;
-  }
-  
-  const Square = React.memo(({ id, className }: SquareProps) => {
+}
+
+//memoize squares to prevent whole grid from re rendering
+const Square = React.memo(({ id, className }: SquareProps) => {
     return <div id={id} className={className}></div>;
-  });
-  
-  export default Square;
+});
+
+export default Square;

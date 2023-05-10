@@ -1,58 +1,54 @@
 import './Game.css';
-import { useEffect, useState, useRef, KeyboardEvent } from 'react';
+import { useEffect, useRef, KeyboardEvent } from 'react';
 import { findIndex, buildGameArray, updateGameArray, updateScore } from '../../Helpers/Utils';
 import blueMan from '../../images/blueman.jpg';
 import skull from '../../images/skull.png';
 import BugReporter from '../BugReportModal/BugReportModal';
-import Squares from '../Grid/Grid';
+import Grid from '../Grid/Grid';
 import Score from '../Score/Score';
 import Rules from '../Rules/Rules';
+import { useGame, useGameArray, usePlayer } from '../../Helpers/Hooks';
 
 function Game() {
-    const [width, setWidth] = useState<number>(window.mediumWidth); //state to track width relative to difficulty
-    const [healthPoints, setHealthPoints] = useState<number>(window.mediumHealth); //state to hold health points
+    const game = useGame(); //custom hook that manages the majority of state changes across the app
+    const playerIndex = usePlayer(0); //holds the players index within the array
+    const gameArray = useGameArray([]); //holds the array that builds the game board
     const healthPointRef = useRef(0); //ref to remember previous health points
-    healthPointRef.current = healthPoints; //link ref and state
-    const [moves, setMoves] = useState<number>(window.mediumMoves); //state to hold moves
+    healthPointRef.current = game.healthPoints; //link ref and state
     const movesRef = useRef(0); //ref to remember previous moves
-    movesRef.current = moves; //link ref and state
-    const [gameArray, setGameArray] = useState<string[]>([]); //holds all classnames of the game in an array
-    const [playerIndex, setPlayerIndex] = useState<number>(0); //players current index in the game array
-    const [gameEnded, setGameEnded] = useState<boolean>(false); //will trigger to true after game ends, and false while game is being played
-    const [scoreStuff, setScoreStuff] = useState({ remainingMoves: window.mediumMoves, remainingHealth: window.mediumHealth, newSquare: '' }); //constructs object to pass to score component
+    movesRef.current = game.moves; //link ref and state
 
     //triggered after each game ends, and on mount
     useEffect(() => {
-        if (!gameEnded) {
+        if (!game.gameEnded) {
             //initial array with randomized classes to build/track the game ex: ['player', 'blank', 'lave', etc...]
-            const shuffledArray = buildGameArray(width);
-            setGameArray(shuffledArray);
+            const shuffledArray = buildGameArray(game.width);
+            gameArray.set(shuffledArray);
             //event listener for arrow keys
             window.addEventListener('keydown', keyPress);
             return () => { window.removeEventListener('keydown', keyPress) };
-        }
+        };
         //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [gameEnded, width]);
+    }, [game.gameEnded, game.width]);
 
     //called after each arrow key is pressed
     function keyPress(event: KeyboardEvent<HTMLInputElement>) {
-        //only fire on arrow keys
+        //case to only run on arrow key press
         switch (event.key) {
             case 'ArrowUp': case 'ArrowDown': case 'ArrowRight': case 'ArrowLeft':
-                //start with player index
-                setPlayerIndex(prevplayerIndex => {
-                    const oldIndex = prevplayerIndex;
-                    const newIndex = findIndex(event.key, oldIndex, width);
-                    //update game array asynchronously with playerIndex
-                    setGameArray(prevGameArray => {
-                        const newScore = updateScore(healthPointRef.current, movesRef.current, newIndex, prevGameArray);
-                        //update score asynchornously with gameArray
-                        setScoreStuff(newScore);
-                        const updatedArray = updateGameArray(prevGameArray, newIndex);
-                        return updatedArray;
-                    });
-                    return newIndex;
-                });
+                event.preventDefault();
+                //square that we were on
+                const oldIndex = playerIndex.get();
+                //square that were going to
+                const newIndex = findIndex(event.key, oldIndex, game.width);
+                //new score based off new square
+                const newScore = updateScore(healthPointRef.current, movesRef.current, newIndex, gameArray.get());
+                //array with player position changed
+                const updatedArray = updateGameArray(gameArray.get(), newIndex);
+                //set states
+                playerIndex.set(newIndex);
+                gameArray.set(updatedArray);
+                game.scoreStuff.current = newScore;
         };
     };
 
@@ -65,20 +61,33 @@ function Game() {
                 <Rules />
             </div>
             {/* calls the component that builds the squares */}
-            <Squares gameArray={gameArray} />
+            <Grid gameArray={gameArray.get()} />
             {/* contains the call to score and bug report components; and license/contact info */}
             <div className='right-container'>
                 <Score
-                    scoreStuff={scoreStuff}
-                    healthPoints={healthPoints}
-                    moves={moves}
-                    playerIndex={playerIndex}
-                    setHealthPoints={setHealthPoints}
-                    setMoves={setMoves}
-                    setGameArray={setGameArray}
-                    setPlayerIndex={setPlayerIndex}
-                    setGameEnded={setGameEnded}
-                    setWidth={setWidth}
+                    setHealthPoints={game.setHealthPoints}
+                    setMoves={game.setMoves}
+                    scoreStuff={game.scoreStuff.current}
+                    easyGame={game.easyGame}
+                    mediumGame={game.mediumGame}
+                    hardGame={game.hardGame}
+                    resetCounters={game.resetCounters}
+                    resetGame={game.resetGame}
+                    winner={game.winner}
+                    loser={game.loser}
+                    difficulty={game.difficulty}
+                    playerIndex={playerIndex.get}
+                    setPlayerIndex={playerIndex.set}
+                    healthPoints={game.healthPoints}
+                    moves={game.moves}
+                    gamesPlayed={game.gamesPlayed.current}
+                    loses={game.loses.current}
+                    wins={game.wins.current}
+                    showLose={game.showLose}
+                    setShowLose={game.setShowLose}
+                    showWin={game.showWin}
+                    setShowWin={game.setShowWin}
+                    setGameEnded={game.setGameEnded}
                 />
                 <img src={skull} alt='' />
                 <h3>Good Luck!</h3>

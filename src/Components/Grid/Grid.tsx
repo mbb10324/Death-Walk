@@ -1,10 +1,12 @@
 import './Grid.css';
-import { useRef, useMemo, useCallback } from 'react';
-import Square from '../Square/Square';
+import '../Square/Square.css'
+import { useRef, useMemo } from 'react';
+import Square from '../Square/Square'
 
 type Props = { gameArray: string[] };
 
-function Squares(props: Props) {
+function Grid(props: Props) {
+    //get numRows, and squareSize to build grid
     const { gameArray } = props;
     const getGridSizeRef = useRef<HTMLDivElement>(null);
     const numRows = Math.ceil(Math.sqrt(gameArray.length));
@@ -17,28 +19,36 @@ function Squares(props: Props) {
         return '';
     }, [getGridSizeRef, numRows]);
 
-    const renderSquare = useCallback((index: number, square: string) => (
-        <Square key={index} id={index.toString()} className={square} />
-    ), []);
+    //prevent react from re rendering entire grid with useMemo
+    const memoizedSquares = useMemo(() => {
+        return (
+            <div
+                ref={getGridSizeRef}
+                className='grid-container'
+                style={{
+                    //using css grid repeat function to build squares dynamically
+                    gridTemplateColumns: `repeat(${numRows}, ${squareSize})`,
+                    gridTemplateRows: `repeat(${numRows}, ${squareSize})`,
+                }}
+            >
+                {/* bool for placeholder if array isnt finished building */}
+                {gameArray.length > 0 ? (
+                    <>
+                        {/* squares built here */}
+                        {gameArray.map((square, index) => {
+                            return (
+                                <Square key={index} id={index.toString()} className={square} />
+                            )
+                        })}
+                    </>
+                ) : (
+                    <h1 className='gamePlaceholder'>building new game...</h1>
+                )}
+            </div>
+        );
+    }, [numRows, squareSize, gameArray]);
 
-    const squares = (
-        <div
-            ref={getGridSizeRef}
-            className='grid-container'
-            style={{
-                gridTemplateColumns: `repeat(${numRows}, ${squareSize})`,
-                gridTemplateRows: `repeat(${numRows}, ${squareSize})`,
-            }}
-        >
-            {gameArray.length > 0 ? (
-                <>{gameArray.map((square, index) => renderSquare(index, square))}</>
-            ) : (
-                <h1 className='gamePlaceholder'>building new game...</h1>
-            )}
-        </div>
-    );
-
-    return squares;
+    return memoizedSquares;
 };
 
-export default Squares;
+export default Grid;

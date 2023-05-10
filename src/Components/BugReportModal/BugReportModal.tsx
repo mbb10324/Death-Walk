@@ -17,7 +17,7 @@ function BugReportButton() {
     //sets state with form field entries
     function bugFormInput(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
-        setFormFields((prevFormData) => ({ ...prevFormData, [name]: value,}));
+        setFormFields((prevFormData) => ({ ...prevFormData, [name]: value, }));
     };
 
     return (

@@ -1,92 +1,62 @@
 import './Score.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { isGameOver } from '../../Helpers/Utils';
+import { ScoreStuff } from '../../Helpers/Hooks';
 import Modals from '../ResultModals/ResultModals';
+import Difficulty from '../Difficulty/Difficulty'
 
 type Props = {
-    scoreStuff: ScoreStuff;
+    difficulty: string;
+    playerIndex: () => number;
     healthPoints: number;
     moves: number;
+    gamesPlayed: number;
+    loses: number;
+    wins: number;
+    showLose: boolean;
+    showWin: boolean;
+    scoreStuff: ScoreStuff;
+    easyGame: () => void;
+    mediumGame: () => void;
+    hardGame: () => void;
+    resetCounters: () => void;
+    resetGame: () => void;
+    winner: () => void;
+    loser: () => void;
+    setPlayerIndex: (num: number) => number;
     setHealthPoints: React.Dispatch<React.SetStateAction<number>>;
     setMoves: React.Dispatch<React.SetStateAction<number>>;
-    setGameArray: React.Dispatch<React.SetStateAction<string[]>>;
-    playerIndex: number;
-    setPlayerIndex: React.Dispatch<React.SetStateAction<number>>;
+    setShowLose: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowWin: React.Dispatch<React.SetStateAction<boolean>>;
     setGameEnded: React.Dispatch<React.SetStateAction<boolean>>;
-    setWidth: React.Dispatch<React.SetStateAction<number>>;
-};
-
-interface ScoreStuff {
-    remainingMoves: number;
-    remainingHealth: number;
-    newSquare: string;
 };
 
 function Score(props: Props) {
-    const { scoreStuff, healthPoints, moves, playerIndex, setHealthPoints, setMoves, setGameArray, setPlayerIndex, setGameEnded, setWidth } = props; //define props
+    const { setHealthPoints, setGameEnded, setShowLose, setShowWin, setMoves, setPlayerIndex,
+        easyGame, mediumGame, hardGame, resetCounters, resetGame, winner, loser,
+        difficulty, scoreStuff, playerIndex, loses, wins, healthPoints, moves, gamesPlayed, showLose, showWin } = props; //define props
+
     const { remainingMoves, remainingHealth, newSquare } = scoreStuff;
-    const [gamesPlayed, setGamesPlayed] = useState<number>(0); //state to hold number of game played
-    const [loses, setLoses] = useState<number>(0); //state to hold number of loses
-    const [wins, setWins] = useState<number>(0); //state to hold number of wins
-    const [showLose, setShowLose] = useState<boolean>(false); //bool state for showing loser modal
-    const [showWin, setShowWin] = useState<boolean>(false); //bool state for showing winner modal
-    const [difficulty, setDifficulty] = useState<string>('medium');
 
     //triggered each time a player moves, but not on mount
     useEffect(() => {
         //checks to see if game has ended
-        const gameOver = isGameOver(remainingMoves, remainingHealth, newSquare)
-        if (gameOver.result === 'loser') { resetGame(); setLoses(loses + 1); setShowLose(true) }
-        else if (gameOver.result === 'winner') { resetGame(); setWins(wins + 1); setShowWin(true) }
-        else { setHealthPoints(remainingHealth); setMoves(remainingMoves) }
+        const gameOver = isGameOver(remainingMoves, remainingHealth, newSquare);
+
+        if (gameOver.result === 'loser') {
+            setPlayerIndex(0);
+            resetGame();
+            loser();
+        } else if (gameOver.result === 'winner') {
+            setPlayerIndex(0);
+            resetGame();
+            winner();
+        } else {
+            setHealthPoints(remainingHealth);
+            setMoves(remainingMoves);
+        }
         //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [playerIndex]);
-
-    function resetGame() {
-        if (difficulty === 'easy') easyGame();
-        if (difficulty === 'medium') mediumGame();
-        if (difficulty === 'hard') hardGame();
-        setGamesPlayed(gamesPlayed + 1);
-        setPlayerIndex(0);
-        setGameEnded(true);
-    };
-
-    function selectDifficulty(event: React.ChangeEvent<HTMLSelectElement>) {
-        if (event.target.value === 'easy') { easyGame(); resetZeros() }
-        else if (event.target.value === 'medium') { mediumGame(); resetZeros() }
-        else if (event.target.value === 'hard') { hardGame(); resetZeros() }
-        else { alert("umm this is awkward, lets reset the game"); window.location.reload() }
-    };
-
-    function easyGame() {
-        setDifficulty('easy');
-        setWidth(window.easyWidth);
-        setHealthPoints(window.easyHealth);
-        setMoves(window.easyMoves);
-    };
-
-    function mediumGame() {
-        setDifficulty('medium');
-        setWidth(window.mediumWidth);
-        setHealthPoints(window.mediumHealth);
-        setMoves(window.mediumMoves);
-    };
-
-    function hardGame() {
-        setDifficulty('hard');
-        setGameArray([]);
-        setWidth(window.hardWidth);
-        setHealthPoints(window.hardHealth);
-        setMoves(window.hardMoves);
-    };
-
-    function resetZeros() {
-        setGamesPlayed(0);
-        setWins(0);
-        setLoses(0);
-        setPlayerIndex(0);
-        setGameArray([]);
-    };
+    }, [playerIndex()]);
 
     return (
         <>
@@ -100,16 +70,25 @@ function Score(props: Props) {
                 <h3>Loses: {loses}</h3>
                 <h3>Wins: {wins}</h3>
                 <br></br>
-                <h1>DIFFICULTY</h1>
-                <select onChange={selectDifficulty} defaultValue={difficulty} disabled={playerIndex !== 0}>
-                    <option value={'easy'}>EASY</option>
-                    <option value={'medium'}>MEDIUM</option>
-                    <option value={'hard'}>HARD</option>
-                </select>
-                {playerIndex !== 0 ? <p>you can change difficulty after the round ends.</p> : ''}
+                {/* call to difficulty component */}
+                <Difficulty
+                    setPlayerIndex={setPlayerIndex}
+                    easyGame={easyGame}
+                    mediumGame={mediumGame}
+                    hardGame={hardGame}
+                    resetCounters={resetCounters}
+                    difficulty={difficulty}
+                    playerIndex={playerIndex}
+                />
             </div>
             {/* call to modals component with passed in information to track result of the game */}
-            <Modals setGameArray={setGameArray} showLose={showLose} setShowLose={setShowLose} showWin={showWin} setShowWin={setShowWin} setGameEnded={setGameEnded} />
+            <Modals
+                setShowLose={setShowLose}
+                setShowWin={setShowWin}
+                setGameEnded={setGameEnded}
+                showWin={showWin}
+                showLose={showLose}
+            />
         </>
     );
 };

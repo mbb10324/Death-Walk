@@ -61,12 +61,5 @@ export function isGameOver(moves: number, health: number, newSquare: string) {
     else return { 'result': 'none' };
 };
 
-//import { useRef, useEffect } from 'react';
-//custom hook to check for first render
-// export function useMount() {
-//     const isMountRef = useRef(false);
-//     useEffect(() => {
-//         isMountRef.current = true;
-//     }, []);
-//     return isMountRef.current;
-// };
+
+
