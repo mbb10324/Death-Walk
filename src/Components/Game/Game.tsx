@@ -1,6 +1,7 @@
 import './Game.css';
 import { useEffect, useRef, KeyboardEvent } from 'react';
 import { findIndex, buildGameArray, updateGameArray, updateScore } from '../../Helpers/Utils';
+import laugh from '../../images/laugh.png'
 import blueMan from '../../images/blueman.jpg';
 import skull from '../../images/skull.png';
 import BugReporter from '../BugReportModal/BugReportModal';
@@ -57,7 +58,7 @@ function Game() {
             {/* contains the title and call to rules component */}
             <div className='left-container'>
                 <h1>Death Walk</h1>
-                <img src={blueMan} alt='' />
+                <img src={skull} alt='' />
                 <Rules />
             </div>
             {/* calls the component that builds the squares */}
@@ -89,8 +90,8 @@ function Game() {
                     setShowWin={game.setShowWin}
                     setGameEnded={game.setGameEnded}
                 />
-                <img src={skull} alt='' />
                 <h3>Good Luck!</h3>
+                <img src={laugh} alt='' />
                 <BugReporter />
                 <p>Copyright (c) 2023 Death Walk</p>
                 <p>&larr; Escape death on the pink square</p>

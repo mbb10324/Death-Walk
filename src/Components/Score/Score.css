@@ -36,16 +36,4 @@
     }
 }
 
-.score select {
-    border: var(--main-Border);
-    width: 50%;
-    height: 40px;
-    border-radius: 3rem;
-    background-color: var(--Pink);
-    text-align: center;
-}
-
-.score select option {
-    background-color: var(--Pink);
-}
 

@@ -14,7 +14,7 @@
 }
 
 .right-container button {
-    margin-top: 2%;
+    margin-top: 3%;
     margin-bottom: 8%;
     border: var(--main-Border);
     width: 50%;
@@ -31,9 +31,11 @@
 }
 
 .right-container img {
+    border-radius: 60%;
+    filter: brightness(60%);
     margin-top: 2%;
     transform: rotate(15deg);
-    height: 25%;
+    height: 20%;
     width: auto;
 }
 
@@ -42,11 +44,7 @@
 }
 
 .left-container img {
-    width: 330px;
-    height: 330px;
-    border-radius: 50%;
     margin-bottom: 25%;
-    border: var(--main-Border);
 }
 
 .left-container h1 {
