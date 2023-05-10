@@ -93,7 +93,7 @@ function Game() {
                 <h3>Good Luck!</h3>
                 <BugReporter />
                 <p>Copyright (c) 2023 Death Walk</p>
-                <p>&larr; Escape death here on the pink square</p>
+                <p>&larr; Escape death on the pink square</p>
             </div>
         </div>
     );
