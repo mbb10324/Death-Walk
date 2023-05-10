@@ -28,7 +28,7 @@ function BugReportButton() {
                     <Modal.Title>Report a bug</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form onSubmit={submitBugs}>
+                    <Form onSubmit={submitBugs} className='bugForm'>
                         <Form.Group controlId="formBasicTitle">
                             <Form.Label>Title</Form.Label>
                             <Form.Control

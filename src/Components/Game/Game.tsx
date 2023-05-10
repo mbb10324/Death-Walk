@@ -2,7 +2,6 @@ import './Game.css';
 import { useEffect, useRef, KeyboardEvent } from 'react';
 import { findIndex, buildGameArray, updateGameArray, updateScore } from '../../Helpers/Utils';
 import laugh from '../../images/laugh.png'
-import blueMan from '../../images/blueman.jpg';
 import skull from '../../images/skull.png';
 import BugReporter from '../BugReportModal/BugReportModal';
 import Grid from '../Grid/Grid';
