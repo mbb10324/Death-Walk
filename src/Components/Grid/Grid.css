@@ -3,7 +3,7 @@
     width: 900px;
     display: grid;
     background-color: darkgray;
-    box-shadow: 0 0 30px var(--DarkBlue);
+    box-shadow: 0 0 30px var(--Black);
     border: 5px solid var(--Black);
     margin-bottom: 10px;
     box-sizing: content-box !important;

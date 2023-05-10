@@ -27,7 +27,7 @@
 .right-container button:hover {
     transform: scale(1.2);
     color: var(--White);
-    background-color: var(--DarkBlue);
+    background-color: var(--Black);
 }
 
 .right-container img {

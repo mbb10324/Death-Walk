@@ -29,40 +29,40 @@ function BugReportButton() {
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={submitBugs} className='bugForm'>
-                        <Form.Group controlId="formBasicTitle">
+                        <Form.Group controlId='formBasicTitle'>
                             <Form.Label>Title</Form.Label>
                             <Form.Control
-                                type="text"
-                                placeholder="Enter title"
-                                name="title"
+                                type='text'
+                                placeholder='Enter title'
+                                name='title'
                                 value={formFields.title}
                                 onChange={bugFormInput}
                                 required
                             />
                         </Form.Group>
-                        <Form.Group controlId="formBasicDescription">
+                        <Form.Group controlId='formBasicDescription'>
                             <Form.Label>Description</Form.Label>
                             <Form.Control
-                                as="textarea"
+                                as='textarea'
                                 rows={3}
-                                placeholder="Enter description"
-                                name="description"
+                                placeholder='Enter description'
+                                name='description'
                                 value={formFields.description}
                                 onChange={bugFormInput}
                                 required
                             />
                         </Form.Group>
-                        <Form.Group controlId="formBasicEmail">
+                        <Form.Group controlId='formBasicEmail'>
                             <Form.Label>Email address</Form.Label>
                             <Form.Control
-                                type="email"
-                                placeholder="Enter email"
-                                name="email"
+                                type='email'
+                                placeholder='Enter email'
+                                name='email'
                                 value={formFields.email}
                                 onChange={bugFormInput}
                                 required
                             />
-                            <Form.Text className="text-muted">
+                            <Form.Text className='text-muted'>
                                 We'll never share your email with anyone else.
                             </Form.Text>
                         </Form.Group>

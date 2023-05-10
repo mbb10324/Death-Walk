@@ -8,4 +8,11 @@
 .bugForm .form-control {
     background-color: rgb(51, 51, 51) !important;
     color: white !important;
+    border: 1px solid var(--RedBrown)
+}
+
+.bugForm .form-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 2px solid var(--Orange) !important;
 }
