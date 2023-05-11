@@ -50,7 +50,6 @@ export default function Game() {
                     healthPoints={game.health}
                     moves={game.moves}
                     newSquare={game.newSquare}
-                    gameEnded={gameEnded}
                     changeDifficulty={game.changeDifficulty}
                     determineGameOver={game.determineGameOver}
                     setGameEnded={setGameEnded}

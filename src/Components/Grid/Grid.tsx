@@ -42,7 +42,7 @@ export default function Grid(props: Props) {
                                 {square.map((x, i) => {
                                     const key = `${index}-${i}`;
                                     return (
-                                        <Square uniqueKey={key} className={x} />
+                                        <Square key={key} className={x} />
                                     )
                                 })}
                             </React.Fragment>

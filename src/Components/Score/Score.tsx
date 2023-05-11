@@ -10,14 +10,13 @@ type Props = {
     healthPoints: number;
     moves: number;
     newSquare: string;
-    gameEnded: boolean;
     changeDifficulty: (difficulty: DifficultyTypes) => void;
     determineGameOver: (string: string) => void;
     setGameEnded: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Score(props: Props) {
-    const { playerIndex, healthPoints, moves, newSquare, gameEnded,
+    const { playerIndex, healthPoints, moves, newSquare,
         changeDifficulty, determineGameOver, setGameEnded } = props; //define props
 
     const score = useScore(); //custom hook to handle score states
