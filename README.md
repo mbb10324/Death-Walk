@@ -4,6 +4,11 @@
 
 MILES BREMAN
 
+## Quick Start
+
+- npm i
+- npm start
+
 ## Description
 
 - This game was created for the purposes of learning and growing as a developer. I utilized React Typescript (more information below) to develop the logic behind the game to excercise/showcase my development capabilities with these technologies. 
