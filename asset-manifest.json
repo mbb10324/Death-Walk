@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/Death-Walk/static/css/main.ee33528c.css",
+    "main.js": "/Death-Walk/static/js/main.72dc292b.js",
+    "static/media/fine.gif": "/Death-Walk/static/media/fine.86e1652ef046763c1f33.gif",
+    "static/media/fire.gif": "/Death-Walk/static/media/fire.b6d25c2127d7ff6e0793.gif",
+    "static/media/winner.gif": "/Death-Walk/static/media/winner.e732716a79170e3f6aef.gif",
+    "static/media/skull.png": "/Death-Walk/static/media/skull.3b0fb949a868d87efd6b.png",
+    "static/media/laugh.png": "/Death-Walk/static/media/laugh.eb4c75645745d93dab79.png",
+    "index.html": "/Death-Walk/index.html",
+    "main.ee33528c.css.map": "/Death-Walk/static/css/main.ee33528c.css.map",
+    "main.72dc292b.js.map": "/Death-Walk/static/js/main.72dc292b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ee33528c.css",
+    "static/js/main.72dc292b.js"
+  ]
+}
