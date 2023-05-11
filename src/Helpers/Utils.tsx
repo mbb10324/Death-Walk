@@ -2,7 +2,7 @@ import { easyHealth, easyMoves, hardHealth, hardMoves, mediumHealth, mediumMoves
 
 //builds the initial game array
 export function buildGameArray(width: number): string[][] {
-    const squareTypes = ['blank', 'speeder', 'lava', 'mud']
+    if (!((width % 2) === 1)) {
     const blankArray = Array(width * width / 4).fill('blank');
     const speederArray = Array(width * width / 4).fill('speeder');
     const lavaArray = Array(width * width / 4).fill('lava');
@@ -13,10 +13,14 @@ export function buildGameArray(width: number): string[][] {
     shuffledArray[shuffledArray.length - 1] = 'end';
     const twoD = makeTwoD(shuffledArray, width)
     return twoD;
+    } else {
+        alert('ERROR: The number of rows/width of the game needs to be an EVEN number.')
+        throw new Error('The number of rows/width of the game needs to be an EVEN number.')
+    }
 };
 
 //converts initial array into 2d
-function makeTwoD(shuffledArray: string[], width: number) {
+export function makeTwoD(shuffledArray: string[], width: number) {
     const board = [];
     for (let i = 0; i < width; i++) {
         const row = [];
@@ -51,12 +55,6 @@ export function findIndex( gameArray: string[][], oldIndex: [number, number], di
         newCol = oldCol - 1;
     } else if (direction === "ArrowRight" && oldCol < gameArray[0].length - 1) {
         newCol = oldCol + 1;
-    }
-    for (let i = 0; i < gameArray.length; i++) {
-        const row = gameArray[i];
-        for (let j = 0; j < row.length; j++) {
-            return [newRow, newCol];
-        }
     }
     return [newRow, newCol];
 }

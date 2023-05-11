@@ -8,7 +8,7 @@ import Grid from '../Grid/Grid';
 import Score from '../Score/Score';
 import Rules from '../Rules/Rules';
 import Difficulty from '../Difficulty/Difficulty';
-import Modals from '../ResultModals/ResultModals';
+import ResultModals from '../ResultModals/ResultModals';
 
 export default function Game() {
     const game = useGame(); //Reducer to manage game state
@@ -19,6 +19,7 @@ export default function Game() {
         game.startGame();
         window.addEventListener('keydown', keyPress);
         return () => { window.removeEventListener('keydown', keyPress) };
+       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -27,6 +28,7 @@ export default function Game() {
         } else if (game.gameCondition === 'loser') {
             score.loser();
         }
+       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [game.gameCondition]);
 
     //called after each arrow key is pressed
@@ -63,7 +65,7 @@ export default function Game() {
                     changeDifficulty={game.changeDifficulty}
                     resetCounters={score.resetCounters}
                 />
-                <Modals
+                <ResultModals
                     clickedRestart={() => game.startGame()}
                     setShowWin={score.setShowWin}
                     setShowLose={score.setShowLose}

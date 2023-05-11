@@ -1,16 +1,53 @@
 .rules {
-    width: 90%;
-    overflow-wrap: break-word;
-    margin-left: 2%;
+    margin-top: 8%;
+    width: 100%;
 }
 
 .rules ul {
     font-size: 18px;
-    margin-right: 2%;
-    text-align: left;
+    overflow-wrap: break-word;
+    margin-left: 6%;
+}
+
+.rules li {
+    display: flex;
+    flex-direction: left;
+    line-height: 2rem;
 }
 
 .rules h1 {
     text-align: center;
     font-size: 45px;
+}
+
+.blankSquare {
+    height: 25px;
+    width: 25px;
+    background-color: darkgray;
+    border: var(--main-Border);
+    margin-right: 10px;
+}
+
+.pinkSquare {
+    height: 25px;
+    width: 25px;
+    background-color: var(--Pink);
+    border: var(--main-Border);
+    margin-right: 10px;
+}
+
+.orangeSquare {
+    height: 25px;
+    width: 25px;
+    background-color: var(--Orange);
+    border: var(--main-Border);
+    margin-right: 10px;
+}
+
+.redSquare {
+    height: 25px;
+    width: 25px;
+    background-color: var(--RedBrown);
+    border: var(--main-Border);
+    margin-right: 10px;
 }

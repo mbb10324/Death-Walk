@@ -13,7 +13,7 @@ type Props = {
     setShowLose: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Modals(props: Props) {
+export default function ResultModals(props: Props) {
     const { showWin, showLose, setShowWin, setShowLose } = props; //define props
 
     //func to close loser modal
