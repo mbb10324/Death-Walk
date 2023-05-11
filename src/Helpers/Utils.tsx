@@ -1,7 +1,8 @@
 import { easyHealth, easyMoves, hardHealth, hardMoves, mediumHealth, mediumMoves, squareDefinitions } from './Globals';
 
 //builds the initial game array
-export function buildGameArray(width: number) {
+export function buildGameArray(width: number): string[][] {
+    const squareTypes = ['blank', 'speeder', 'lava', 'mud']
     const blankArray = Array(width * width / 4).fill('blank');
     const speederArray = Array(width * width / 4).fill('speeder');
     const lavaArray = Array(width * width / 4).fill('lava');
@@ -15,7 +16,7 @@ export function buildGameArray(width: number) {
 };
 
 //converts initial array into 2d
-function makeTwoD(shuffledArray: string[][], width: number) {
+function makeTwoD(shuffledArray: string[], width: number) {
     const board = [];
     for (let i = 0; i < width; i++) {
         const row = [];
@@ -38,7 +39,7 @@ function fisherYatesShuffle(array: any[]) {
 };
 
 //finds the next index the player is moving to
-export function findIndex( gameArray: string[][], oldIndex: number[], direction: string ) {
+export function findIndex( gameArray: string[][], oldIndex: [number, number], direction: string ): [number, number] {
     const [oldRow, oldCol] = oldIndex;
     let newRow = oldRow;
     let newCol = oldCol;
@@ -57,7 +58,7 @@ export function findIndex( gameArray: string[][], oldIndex: number[], direction:
             return [newRow, newCol];
         }
     }
-    return null;
+    return [newRow, newCol];
 }
 
 export function updateGameArray( grid: string[][], oldIndex: number[], newIndex: number[]) {
@@ -77,10 +78,10 @@ export function updateScore(currHealth: number, currMoves: number, newIndex: num
 };
 
 //determine if the game has ended 
-export function isGameOver(moves: number, health: number, newSquare: string) {
-    if (health <= 0 || moves <= 0) return { 'result': 'loser' };
-    else if (newSquare === 'end') return { 'result': 'winner' };
-    else return { 'result': 'none' };
+export function isGameOver(moves: number, health: number, newSquare: string): 'loser' | 'winner' | 'running' {
+    if (health <= 0 || moves <= 0) return 'loser';
+    else if (newSquare === 'end') return 'winner';
+    else return 'running'
 };
 
 export function difficulyReset(difficulty: string) {

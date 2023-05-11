@@ -8,6 +8,7 @@ export default function Grid(props: Props) {
     //get numRows, and squareSize to build grid
     const { gameArray } = props;
     const getGridSizeRef = useRef<HTMLDivElement>(null);
+
     const numRows = gameArray[0].length
 
     function getSquareSize() {
@@ -33,7 +34,6 @@ export default function Grid(props: Props) {
                 }}
             >
                 {/* bool for placeholder if array isnt finished building */}
-
                 <>
                     {/* map game array and call squares component */}
                     {gameArray.map((square, index) => {
@@ -49,7 +49,6 @@ export default function Grid(props: Props) {
                         )
                     })}
                 </>
-
             </div>
         );
     }, [gameArray, numRows, squareSize])

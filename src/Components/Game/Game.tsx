@@ -1,27 +1,33 @@
 import './Game.css';
-import { useEffect, KeyboardEvent, useState } from 'react';
-import { useGame } from '../../Helpers/Hooks';
+import { useEffect, KeyboardEvent } from 'react';
+import { useGame, useScore } from '../../Helpers/Hooks';
 import laugh from '../../images/laugh.png';
 import skull from '../../images/skull.png';
 import BugReporter from '../BugReportModal/BugReportModal';
 import Grid from '../Grid/Grid';
 import Score from '../Score/Score';
 import Rules from '../Rules/Rules';
+import Difficulty from '../Difficulty/Difficulty';
+import Modals from '../ResultModals/ResultModals';
 
 export default function Game() {
     const game = useGame(); //Reducer to manage game state
 
-    const [gameEnded, setGameEnded] = useState(false); //bool to check when game ends
+    const score = useScore(); //custom hook to handle score states
 
-    //triggered after each game ends, and on mount
     useEffect(() => {
-        if (!gameEnded) {
-            game.startGame();
-            window.addEventListener('keydown', keyPress);
-            return () => { window.removeEventListener('keydown', keyPress) };
-        };
-        //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [gameEnded, game.width]);
+        game.startGame();
+        window.addEventListener('keydown', keyPress);
+        return () => { window.removeEventListener('keydown', keyPress) };
+    }, []);
+
+    useEffect(() => {
+        if (game.gameCondition === 'winner') {
+            score.winner();
+        } else if (game.gameCondition === 'loser') {
+            score.loser();
+        }
+    }, [game.gameCondition]);
 
     //called after each arrow key is pressed
     function keyPress(event: KeyboardEvent<HTMLInputElement>) {
@@ -46,13 +52,23 @@ export default function Game() {
             {/* contains the call to score and bug report components; and license/contact info */}
             <div className='right-container'>
                 <Score
-                    playerIndex={game.playerIndex}
                     healthPoints={game.health}
                     moves={game.moves}
-                    newSquare={game.newSquare}
+                    wins={score.wins}
+                    loses={score.loses}
+                    gamesPlayed={score.gamesPlayed}
+                />
+                <Difficulty
+                    gameInProgress={game.gameCondition === 'running'}
                     changeDifficulty={game.changeDifficulty}
-                    determineGameOver={game.determineGameOver}
-                    setGameEnded={setGameEnded}
+                    resetCounters={score.resetCounters}
+                />
+                <Modals
+                    clickedRestart={() => game.startGame()}
+                    setShowWin={score.setShowWin}
+                    setShowLose={score.setShowLose}
+                    showWin={score.showWin}
+                    showLose={score.showLose}
                 />
                 <h3>Good Luck!</h3>
                 <img src={laugh} alt='' />

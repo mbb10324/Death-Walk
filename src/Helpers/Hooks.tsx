@@ -1,5 +1,5 @@
-import { useReducer, useState, useRef, useEffect } from "react";
-import { buildGameArray, difficulyReset, findIndex, updateGameArray, updateScore } from "./Utils";
+import { useReducer, useState, useRef, useEffect, Reducer } from "react";
+import { buildGameArray, difficulyReset, findIndex, isGameOver, updateGameArray, updateScore } from "./Utils";
 import { easyHealth, easyMoves, easyWidth, hardHealth, hardMoves, hardWidth, mediumHealth, mediumMoves, mediumWidth } from "./Globals";
 
 export type ArrowKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown'
@@ -19,13 +19,14 @@ export enum DifficultyTypes {
 };
 
 interface GameState {
-    playerIndex: any; //number[]
-    gameArray: any; //string[][]
+    playerIndex: [number, number];
+    gameArray: string[][]
     width: number;
     healthPoints: number;
     moves: number;
     newSquare: string;
     difficulty: string;
+    gameCondition: 'new' | 'running' | 'winner' | 'loser';
 }
 
 const initialGameState: GameState = {
@@ -36,35 +37,46 @@ const initialGameState: GameState = {
     moves: mediumMoves,
     newSquare: '',
     difficulty: 'medium',
+    gameCondition: 'new',
 };
 
 //REDUCER STARTS HERE ******************************
-const gameReducer = (state: GameState, action: GameAction) => {
+const gameReducer: Reducer<GameState, GameAction> = (state: GameState, action: GameAction): GameState => {
     switch (action.type) {
         //fired each time the game starts/startsover
         case 'GameStarted':
+            const thisDifficuly = difficulyReset(state.difficulty);
             return {
                 ...state,
+                healthPoints: thisDifficuly.healthDiff,
+                moves: thisDifficuly.movesDiff,
                 playerIndex: [0, 0],
                 gameArray: buildGameArray(state.width),
+                gameCondition: 'new',
             };
         //fired on every arrow key press
         case 'KeyPressed':
-            const newIndex = findIndex(state.gameArray, state.playerIndex, action.key);
-            let updatedArray: string[][] = []
-            let newScore = { remainingHealth: 1, remainingMoves: 1, newSquare: 'blank' }
-            if (newIndex) {
-                newScore = updateScore(state.healthPoints, state.moves, newIndex, state.gameArray);
-                updatedArray = updateGameArray(state.gameArray, state.playerIndex, newIndex);
-            }
-            return {
-                ...state,
-                playerIndex: newIndex,
-                gameArray: updatedArray,
-                healthPoints: newScore.remainingHealth,
-                moves: newScore.remainingMoves,
-                newSquare: newScore.newSquare
-            };
+                if (state.gameCondition !== 'loser' && state.gameCondition !== 'winner') {
+                    const newIndex = findIndex(state.gameArray, state.playerIndex, action.key);
+                    const newScore = updateScore(state.healthPoints, state.moves, newIndex, state.gameArray);
+                    const updatedArray: string[][] = updateGameArray(state.gameArray, state.playerIndex, newIndex);
+                    const nextGameState = isGameOver(newScore.remainingHealth, newScore.remainingMoves, newScore.newSquare);
+
+                    return {
+                        ...state,
+                        playerIndex: newIndex,
+                        gameArray: updatedArray,
+                        healthPoints: newScore.remainingHealth,
+                        moves: newScore.remainingMoves,
+                        newSquare: newScore.newSquare,
+                        gameCondition: nextGameState,
+                    };
+                } else {
+                    return state
+                }
+        default:
+            return state
+        
         //fired after changing difficulties
         case 'DifficultyChanged':
             switch (action.difficulty) {
@@ -74,7 +86,10 @@ const gameReducer = (state: GameState, action: GameAction) => {
                         difficulty: 'easy',
                         width: easyWidth,
                         healthPoints: easyHealth,
-                        moves: easyMoves
+                        moves: easyMoves,
+                        playerIndex: [0, 0],
+                        gameArray: buildGameArray(easyWidth),
+                        gameCondition: 'new',
                     };
                 case 'medium':
                     return {
@@ -82,7 +97,10 @@ const gameReducer = (state: GameState, action: GameAction) => {
                         difficulty: 'medium',
                         width: mediumWidth,
                         healthPoints: mediumHealth,
-                        moves: mediumMoves
+                        moves: mediumMoves,
+                        playerIndex: [0, 0],
+                        gameArray: buildGameArray(mediumWidth),
+                        gameCondition: 'new',
                     };
                 case 'hard':
                     return {
@@ -90,36 +108,16 @@ const gameReducer = (state: GameState, action: GameAction) => {
                         difficulty: 'hard',
                         width: hardWidth,
                         healthPoints: hardHealth,
-                        moves: hardMoves
+                        moves: hardMoves,
+                        playerIndex: [0, 0],
+                        gameArray: buildGameArray(hardWidth),
+                        gameCondition: 'new',
                     };
                 default:
                     return state;
             };
-        //fired every time the score is updated
-        case 'DetermineGameOver':
-            const thisDifficuly = difficulyReset(state.difficulty)
-            switch (action.result) {
-                case 'loser':
-                    return {
-                        ...state,
-                        healthPoints: thisDifficuly.healthDiff,
-                        moves: thisDifficuly.movesDiff,
-                        playerIndex: [0, 0],
-                    };
-                case 'winner':
-                    return {
-                        ...state,
-                        healthPoints: thisDifficuly.healthDiff,
-                        moves: thisDifficuly.movesDiff,
-                        playerIndex: [0, 0],
-                    };
-                default:
-                    return state;
-            };
-        default:
-            return state;
-    }
-}
+    };
+};
 
 export function useGame() {
     const [state, dispatch] = useReducer(gameReducer, initialGameState);
@@ -136,21 +134,15 @@ export function useGame() {
         dispatch({ type: 'DifficultyChanged', difficulty });
     };
 
-    function determineGameOver(result: string) {
-        dispatch({ type: 'DetermineGameOver', result });
-    };
-
     return {
         startGame,
         pressKey,
         changeDifficulty,
-        determineGameOver,
         grid: state.gameArray,
-        playerIndex: state.playerIndex,
         width: state.width,
         health: state.healthPoints,
         moves: state.moves,
-        newSquare: state.newSquare
+        gameCondition: state.gameCondition,
     };
 };
 
