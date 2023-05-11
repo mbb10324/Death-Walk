@@ -1,12 +1,12 @@
 .rules {
-    margin-top: 8%;
+    margin-top: 13%;
     width: 100%;
 }
 
 .rules ul {
     font-size: 18px;
     overflow-wrap: break-word;
-    margin-left: 6%;
+    margin-left: 2%;
 }
 
 .rules li {
