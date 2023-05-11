@@ -52,7 +52,7 @@ const gameReducer = (state: GameState, action: GameAction) => {
         case 'KeyPressed':
             const newIndex = findIndex(state.gameArray, state.playerIndex, action.key);
             let updatedArray: string[][] = []
-            let newScore = { remainingHealth: 0, remainingMoves: 0, newSquare: '' }
+            let newScore = { remainingHealth: 1, remainingMoves: 1, newSquare: 'blank' }
             if (newIndex) {
                 newScore = updateScore(state.healthPoints, state.moves, newIndex, state.gameArray);
                 updatedArray = updateGameArray(state.gameArray, state.playerIndex, newIndex);
@@ -102,16 +102,16 @@ const gameReducer = (state: GameState, action: GameAction) => {
                 case 'loser':
                     return {
                         ...state,
-                        playerIndex: [0, 0],
                         healthPoints: thisDifficuly.healthDiff,
-                        moves: thisDifficuly.movesDiff
+                        moves: thisDifficuly.movesDiff,
+                        playerIndex: [0, 0],
                     };
                 case 'winner':
                     return {
                         ...state,
-                        playerIndex: [0, 0],
                         healthPoints: thisDifficuly.healthDiff,
-                        moves: thisDifficuly.movesDiff
+                        moves: thisDifficuly.movesDiff,
+                        playerIndex: [0, 0],
                     };
                 default:
                     return state;

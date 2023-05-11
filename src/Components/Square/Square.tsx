@@ -8,7 +8,6 @@ interface SquareProps {
 
 //memoize squares to prevent whole grid from re rendering
 const Square = React.memo(({ className, uniqueKey }: SquareProps) => {
-    console.log(className)
     return <div key={uniqueKey} className={className}></div>
 });
 
