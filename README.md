@@ -6,8 +6,8 @@ MILES BREMAN
 
 ## Quick Start
 
-- npm i
-- npm start
+```npm i```
+```npm start```
 
 ## Description
 
