@@ -1,14 +1,15 @@
+import './Square.css';
 import React from "react";
-import './Square.css'
 
 interface SquareProps {
-    id: string;
     className: string;
+    uniqueKey: string;
 }
 
 //memoize squares to prevent whole grid from re rendering
-const Square = React.memo(({ id, className }: SquareProps) => {
-    return <div id={id} className={className}></div>;
+const Square = React.memo(({ className, uniqueKey }: SquareProps) => {
+    console.log(className)
+    return <div key={uniqueKey} className={className}></div>
 });
 
 export default Square;

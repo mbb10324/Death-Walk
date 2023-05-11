@@ -1,6 +1,6 @@
 import './Rules.css';
 
-function Rules() {
+export default function Rules() {
     return (
         <div className='rules'>
             <h1>RULES</h1>
@@ -15,5 +15,3 @@ function Rules() {
         </div>
     );
 };
-
-export default Rules;

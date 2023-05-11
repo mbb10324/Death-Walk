@@ -1,62 +1,41 @@
 import './Score.css';
 import { useEffect } from 'react';
 import { isGameOver } from '../../Helpers/Utils';
-import { ScoreStuff } from '../../Helpers/Hooks';
+import { DifficultyTypes, useScore } from '../../Helpers/Hooks';
 import Modals from '../ResultModals/ResultModals';
-import Difficulty from '../Difficulty/Difficulty'
+import Difficulty from '../Difficulty/Difficulty';
 
 type Props = {
-    difficulty: string;
-    playerIndex: () => number;
+    playerIndex: number[];
     healthPoints: number;
     moves: number;
-    gamesPlayed: number;
-    loses: number;
-    wins: number;
-    showLose: boolean;
-    showWin: boolean;
-    scoreStuff: ScoreStuff;
-    easyGame: () => void;
-    mediumGame: () => void;
-    hardGame: () => void;
-    resetCounters: () => void;
-    resetGame: () => void;
-    winner: () => void;
-    loser: () => void;
-    setPlayerIndex: (num: number) => number;
-    setHealthPoints: React.Dispatch<React.SetStateAction<number>>;
-    setMoves: React.Dispatch<React.SetStateAction<number>>;
-    setShowLose: React.Dispatch<React.SetStateAction<boolean>>;
-    setShowWin: React.Dispatch<React.SetStateAction<boolean>>;
+    newSquare: string;
+    changeDifficulty: (difficulty: DifficultyTypes) => void;
+    determineGameOver: (string: string) => void;
     setGameEnded: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-function Score(props: Props) {
-    const { setHealthPoints, setGameEnded, setShowLose, setShowWin, setMoves, setPlayerIndex,
-        easyGame, mediumGame, hardGame, resetCounters, resetGame, winner, loser,
-        difficulty, scoreStuff, playerIndex, loses, wins, healthPoints, moves, gamesPlayed, showLose, showWin } = props; //define props
+export default function Score(props: Props) {
+    const { playerIndex, healthPoints, moves, newSquare,
+        changeDifficulty, determineGameOver, setGameEnded } = props; //define props
 
-    const { remainingMoves, remainingHealth, newSquare } = scoreStuff;
+    const score = useScore(); //custom hook to handle score states
 
-    //triggered each time a player moves, but not on mount
+    //triggered each time a player moves
     useEffect(() => {
         //checks to see if game has ended
-        const gameOver = isGameOver(remainingMoves, remainingHealth, newSquare);
-
+        const gameOver = isGameOver(healthPoints, moves, newSquare);
         if (gameOver.result === 'loser') {
-            setPlayerIndex(0);
-            resetGame();
-            loser();
+            determineGameOver('loser');
+            setGameEnded(true);
+            score.loser();
         } else if (gameOver.result === 'winner') {
-            setPlayerIndex(0);
-            resetGame();
-            winner();
-        } else {
-            setHealthPoints(remainingHealth);
-            setMoves(remainingMoves);
+            determineGameOver('winner');
+            setGameEnded(true);
+            score.winner();
         }
         //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [playerIndex()]);
+    }, [playerIndex]);
 
     return (
         <>
@@ -66,31 +45,25 @@ function Score(props: Props) {
                 <h3>Health: {healthPoints}</h3>
                 <h3>Moves: {moves}</h3>
                 <br></br>
-                <h3>Games Played: {gamesPlayed}</h3>
-                <h3>Loses: {loses}</h3>
-                <h3>Wins: {wins}</h3>
+                <h3>Games Played: {score.gamesPlayed}</h3>
+                <h3>Loses: {score.loses}</h3>
+                <h3>Wins: {score.wins}</h3>
                 <br></br>
                 {/* call to difficulty component */}
                 <Difficulty
-                    setPlayerIndex={setPlayerIndex}
-                    easyGame={easyGame}
-                    mediumGame={mediumGame}
-                    hardGame={hardGame}
-                    resetCounters={resetCounters}
-                    difficulty={difficulty}
                     playerIndex={playerIndex}
+                    changeDifficulty={changeDifficulty}
+                    resetCounters={score.resetCounters}
                 />
             </div>
-            {/* call to modals component with passed in information to track result of the game */}
+            {/* call to modals component  */}
             <Modals
-                setShowLose={setShowLose}
-                setShowWin={setShowWin}
                 setGameEnded={setGameEnded}
-                showWin={showWin}
-                showLose={showLose}
+                setShowWin={score.setShowWin}
+                setShowLose={score.setShowLose}
+                showWin={score.showWin}
+                showLose={score.showLose}
             />
         </>
     );
 };
-
-export default Score;

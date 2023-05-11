@@ -1,19 +1,19 @@
+import './ResultModals.css';
 import Modal from 'react-bootstrap/Modal';
 import fine from '../../images/fine.gif';
 import fire from '../../images/fire.gif';
 import winner from '../../images/winner.gif';
-import './ResultModals.css';
 
 type Props = {
-    showLose: boolean;
-    setShowLose: React.Dispatch<React.SetStateAction<boolean>>;
     showWin: boolean;
+    showLose: boolean;
     setShowWin: React.Dispatch<React.SetStateAction<boolean>>;
+    setShowLose: React.Dispatch<React.SetStateAction<boolean>>;
     setGameEnded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Modals(props: Props) {
-    const { showLose, setShowLose, showWin, setShowWin, setGameEnded } = props; //define props
+export default function Modals(props: Props) {
+    const { showWin, showLose, setShowWin, setShowLose, setGameEnded } = props; //define props
 
     //func to close loser modal
     function closeLose() {
@@ -32,7 +32,7 @@ function Modals(props: Props) {
         const options = Array(3).fill(fire);
         options.push(fine);
         const chooseOne = options[Math.floor(Math.random() * options.length)];
-        return chooseOne
+        return chooseOne;
     };
 
     return (
@@ -70,5 +70,3 @@ function Modals(props: Props) {
         </div>
     )
 }
-
-export default Modals;

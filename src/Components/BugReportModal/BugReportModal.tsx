@@ -1,8 +1,8 @@
+import './BugReportModal.css';
 import React, { useState } from 'react';
 import { Modal, Form } from 'react-bootstrap';
-import './BugReportModal.css';
 
-function BugReportButton() {
+export default function BugReportButton() {
     const [formFields, setFormFields] = useState({ title: '', description: '', email: '' }); //holds form entries
     const [showBugReport, setShowBugReport] = useState(false); //bool state to toggle bug report modal
 
@@ -73,5 +73,3 @@ function BugReportButton() {
         </>
     );
 };
-
-export default BugReportButton;

@@ -1,49 +1,32 @@
 import './Difficulty.css';
+import { DifficultyTypes } from '../../Helpers/Hooks';
 
 type Props = {
-    difficulty: string;
-    playerIndex: () => number;
-    easyGame: () => void;
-    mediumGame: () => void;
-    hardGame: () => void;
+    playerIndex: number[];
+    changeDifficulty: (difficulty: DifficultyTypes) => void;
     resetCounters: () => void;
-    setPlayerIndex: (num: number) => number;
 }
 
-function Difficuly(props: Props) {
-    const { difficulty, playerIndex, easyGame, mediumGame, hardGame, resetCounters, setPlayerIndex } = props;
+export default function Difficulty(props: Props) {
+    const { playerIndex, changeDifficulty, resetCounters } = props; //define props
 
     //called after select field changed
     function selectDifficulty(event: React.ChangeEvent<HTMLSelectElement>) {
-        if (event.target.value === 'easy') {
-            easyGame();
-            resetCounters();
-            setPlayerIndex(0);
-        } else if (event.target.value === 'medium') {
-            mediumGame();
-            resetCounters();
-            setPlayerIndex(0);
-        } else if (event.target.value === 'hard') {
-            hardGame();
-            resetCounters();
-            setPlayerIndex(0);
-        } else {
-            alert("ummm this is awkward, lets reset the game"); window.location.reload();
-        }
+        changeDifficulty(event.target.value as DifficultyTypes);
+        resetCounters();
     };
 
     return (
         <>
             <h1>DIFFICULTY</h1>
-            <select onChange={selectDifficulty} defaultValue={difficulty} disabled={playerIndex() !== 0}>
-                <option value={'easy'}>EASY</option>
-                <option value={'medium'}>MEDIUM</option>
-                <option value={'hard'}>HARD</option>
+            {/* map over Difficulty type to ensure no type mismatches */}
+            <select onChange={selectDifficulty} defaultValue='medium' disabled={playerIndex[0] !== 0}>
+                {Object.entries(DifficultyTypes).map(([key, value]) => (
+                    <option key={key} value={value}>{key.toUpperCase()}</option>
+                ))}
             </select>
             {/* make player wait till game ends to change difficulty */}
-            {playerIndex() !== 0 ? <p>you can change difficulty after the round ends.</p> : ''}
+            {playerIndex[0] !== 0 ? <p>you can change difficulty after the round ends.</p> : ''}
         </>
-    )
-}
-
-export default Difficuly;
+    );
+};

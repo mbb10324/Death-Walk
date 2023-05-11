@@ -1,26 +1,27 @@
 import './Grid.css';
-import '../Square/Square.css'
-import { useRef, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import Square from '../Square/Square'
 
-type Props = { gameArray: string[] };
+type Props = { gameArray: string[][] };
 
-function Grid(props: Props) {
+export default function Grid(props: Props) {
     //get numRows, and squareSize to build grid
     const { gameArray } = props;
     const getGridSizeRef = useRef<HTMLDivElement>(null);
-    const numRows = Math.ceil(Math.sqrt(gameArray.length));
+    const numRows = gameArray[0].length
 
-    const squareSize = useMemo(() => {
+    function getSquareSize() {
         const getGridSize = getGridSizeRef.current;
         if (getGridSize instanceof HTMLElement) {
             return `${Number(getGridSize.clientWidth) / numRows}px`;
         }
         return '';
-    }, [getGridSizeRef, numRows]);
+    };
+
+    const squareSize = getSquareSize()
 
     //prevent react from re rendering entire grid with useMemo
-    const memoizedSquares = useMemo(() => {
+    const memoizeSquares = useMemo(() => {
         return (
             <div
                 ref={getGridSizeRef}
@@ -32,23 +33,25 @@ function Grid(props: Props) {
                 }}
             >
                 {/* bool for placeholder if array isnt finished building */}
-                {gameArray.length > 0 ? (
-                    <>
-                        {/* squares built here */}
-                        {gameArray.map((square, index) => {
-                            return (
-                                <Square key={index} id={index.toString()} className={square} />
-                            )
-                        })}
-                    </>
-                ) : (
-                    <h1 className='gamePlaceholder'>building new game...</h1>
-                )}
+
+                <>
+                    {/* map game array and call squares component */}
+                    {gameArray.map((square, index) => {
+                        return (
+                            <React.Fragment key={`outer-${index}`}>
+                                {square.map((x, i) => {
+                                    const key = `${index}-${i}`;
+                                    return (
+                                        <Square uniqueKey={key} className={x} />
+                                    )
+                                })}
+                            </React.Fragment>
+                        )
+                    })}
+                </>
+
             </div>
         );
-    }, [numRows, squareSize, gameArray]);
-
-    return memoizedSquares;
+    }, [gameArray, numRows, squareSize])
+    return memoizeSquares;
 };
-
-export default Grid;
