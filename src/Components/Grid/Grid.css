@@ -2,7 +2,7 @@
     height: 900px;
     width: 900px;
     display: grid;
-    background-color: darkgray;
+    background-color: var(--Black);
     box-shadow: 0 0 30px var(--Black);
     border: 5px solid var(--Black);
     margin-bottom: 10px;

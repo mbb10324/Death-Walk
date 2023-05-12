@@ -1,5 +1,6 @@
 .blank {
     border: var(--main-Border);
+    background-color: darkgray;
 }
 
 .speeder {
