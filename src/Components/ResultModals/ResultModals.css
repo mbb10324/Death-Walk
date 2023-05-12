@@ -6,7 +6,7 @@
     border-radius: 3rem !important;
     box-shadow: 0 0 5px var(--Black) !important;
     background-color: var(--Black) !important;
-    font-family: monospace !important;
+    font-family: 'CourierPrime-Regular' !important;
     color: var(--White) !important;
     width: 500px !important;
 }

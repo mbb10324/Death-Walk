@@ -16,3 +16,19 @@
     box-shadow: none !important;
     border: 2px solid var(--Orange) !important;
 }
+
+.right-container button {
+    border: var(--main-Border);
+    width: 50%;
+    height: 3vw;
+    margin-bottom: 1vw;
+    border-radius: 3rem;
+    background-color: var(--Orange);
+    transition: all .5s cubic-bezier(.79, -1, .37, 2);
+}
+
+.right-container button:hover {
+    transform: scale(1.2);
+    color: var(--White);
+    background-color: var(--Black);
+}

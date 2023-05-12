@@ -2,20 +2,17 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    padding-bottom: 5%;
 }
 
 .score h1 {
     text-align: center;
-    font-size: 45px;
-    margin-bottom: 2%;
+    font-size: 3vw;
 }
 
 .score h3 {
     text-align: center;
-    font-size: 30px;
+    font-size: 1.5vw;
     margin-bottom: 1%;
-    margin-top: 2%;
 }
 
 .score p {

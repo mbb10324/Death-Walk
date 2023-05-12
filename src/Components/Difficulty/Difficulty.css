@@ -1,18 +1,23 @@
 .difficulty {
     position: relative;
     width: 100%;
-    height: 12%;
     overflow: hidden;
+    padding-bottom: 2.5vw;
+}
+
+.difficulty h1 {
+    font-size: 2.8vw;
 }
 
 .difficulty select {
     border: var(--main-Border);
     width: 50%;
-    height: 40px;
+    height: 3vw;
     border-radius: 3rem;
     background-color: var(--Pink);
     text-align: center;
     cursor: pointer;
+    font-size: 1.2vw;
 }
 
 .difficultyr select option {
@@ -20,11 +25,13 @@
 }
 
 .difficulty p {
+    font-size: .8vw;
     position: absolute;
     right: 0px;
-    top: 70%;
+    top: 80%;
     animation: .7s fadeIn linear;
     width: 100%;
+    height: 100%;
 }
 
 @keyframes fadeIn {

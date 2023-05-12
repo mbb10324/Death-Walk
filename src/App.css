@@ -21,9 +21,29 @@
     var(--Pink) 0%, var(--Pink) 35%, 
     var(--Orange) 35%, var(--Orange) 68%, 
     var(--RedBrown) 68%, var(--RedBrown) 100%) repeat;
-    font-family: monospace;
+    font-family: 'CourierPrime-Regular';
     color: var(--Black);
     height: 100vh;
     min-height: 100%;
     width: 100vw;
+}
+
+@font-face {
+    font-family: 'CourierPrime-Bold';
+    src: url(./fonts/CourierPrime-Bold.ttf) format('truetype')
+}
+
+@font-face {
+    font-family: 'CourierPrime-BoldItalic';
+    src: url(./fonts/CourierPrime-BoldItalic.ttf) format('truetype')
+}
+
+@font-face {
+    font-family: 'CourierPrime-Italic';
+    src: url(./fonts/CourierPrime-Italic.ttf) format('truetype')
+}
+
+@font-face {
+    font-family: 'CourierPrime-Regular';
+    src: url(./fonts/CourierPrime-Regular.ttf) format('truetype')
 }
