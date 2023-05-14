@@ -62,7 +62,7 @@ const gameReducer: Reducer<GameState, GameAction> = (state: GameState, action: G
                     const newScore = updateScore(state.healthPoints, state.moves, newIndex, state.gameArray);
                     const updatedArray: string[][] = updateGameArray(state.gameArray, state.playerIndex, newIndex);
                     const nextGameState = isGameOver(newScore.remainingHealth, newScore.remainingMoves, newScore.newSquare);
-                    console.log(updatedArray)
+                    
                     return {
                         ...state,
                         playerIndex: newIndex,
