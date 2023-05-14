@@ -10,27 +10,35 @@ import Rules from '../Rules/Rules';
 import Difficulty from '../Difficulty/Difficulty';
 import ResultModals from '../ResultModals/ResultModals';
 import { useLazyQuery, useQuery, gql } from '@apollo/client';
-import { GET_AUTHORS } from '../../Helpers/Api';
+import { GET_USERS } from '../../Api/Quieries';
+import { useNavigate } from "react-router-dom";
 
 export default function Game() {
-    // const { loading, error, data } = useQuery(GET_AUTHORS);
-    // const { loading, error, data } = useQuery(GET_AUTHORS);
+    const navigate = useNavigate(); //navigate var
+    const { loading, error, data } = useQuery(GET_USERS);
     // if (loading) return <p>Loading...</p>;
     // if (error) return <p>Error : {error.message}</p>;
     // https://www.apollographql.com/docs/react/data/queries
 
-    // if (data) {
-    // console.log(data.books)
-    // }
+    if (data) {
+    console.log(data.users)
+    }
 
     const game = useGame(); //Reducer to manage game state
 
     const score = useScore(); //custom hook to handle score states
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/Login');
+            console.log(false)
+        } else {
+            console.log(true)
         game.startGame();
         window.addEventListener('keydown', keyPress);
         return () => { window.removeEventListener('keydown', keyPress) };
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

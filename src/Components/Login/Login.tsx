@@ -10,6 +10,20 @@ import Modal from 'react-bootstrap/Modal';
 import Alert from "react-bootstrap/Alert";
 import { debounce } from "../../Helpers/Utils";
 import skull from '../../images/skull.png';
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { ADD_USER } from "../../Api/Mutations";
+import { LOGIN } from "../../Api/Quieries";
+
+interface AddUserInput {
+    username: string;
+    email: string;
+    password: string;
+}
+
+interface Login {
+    username: string;
+    password: string;
+}
 
 function Login() {
     const navigate = useNavigate(); //navigate var
@@ -24,10 +38,26 @@ function Login() {
     const handleShow = () => setShow(true); //shows create account modal
     const toggleLock = () => setLock(!lock); //toggles the lock view
     const checkIdentityDebounced = debounce(500, checkIdentity);
+    const [addUser, { data: addUserData, error: addUserError }] = useMutation(ADD_USER, {
+        onCompleted: (addUserData) => {
+            console.log(addUserData);
+            setShowSuccess(true);
+            setDisableButton(true);
+        },
+    });
+    const [user, { loading: loginLoading, error: loginError, data: loginData }] = useLazyQuery(LOGIN, {
+        onError: (loginError) => { setShowAlert(true); console.log(loginError)},
+        onCompleted: (loginData) => {
+                toggleLock();
+                localStorage.setItem('token', loginData.user.token);
+                setTimeout(() => { navigate("/") }, 3000);
+        }
+    })
 
     useEffect(() => {
-        if (localStorage.getItem('token')) {
-            navigate('/');
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/')
         }
     }, []);
 
@@ -67,22 +97,13 @@ function Login() {
     function tryLogin(event: any) {
         event.preventDefault();
         event.stopPropagation();
-        let username = event.target[0].value;
-        let password = event.target[1].value;
-        console.log(username, password)
-        toggleLock();
-        setTimeout(() => { navigate("/") }, 3000);
-        // return api.checkLogin({ username, password })
-        //     .then((result) => {
-        //         if (!result) {
-        //             setShowAlert(true);
-        //             return;
-        //         }
-        //         toggleLock();
-        //         setCookie("group", 0)
-        //         localStorage.setItem('token', result.token);
-        //         setTimeout(() => { navigate("/") }, 2000);
-        //     });
+        let usernameForm = event.target[0].value;
+        let passwordForm = event.target[1].value;
+        const input: Login = {
+            username: usernameForm,
+            password: passwordForm,
+        };
+        user({ variables: input })
     }
 
     function checkIdentity(email: any, username: any) {
@@ -100,7 +121,6 @@ function Login() {
         //     });
     }
 
-
     //function called when attempting to create an account
     async function createAccount(event: any) {
         event.preventDefault();
@@ -108,19 +128,14 @@ function Login() {
         const newErrors = findFormErrors();
         console.log(newErrors)
         if (Object.keys(newErrors).length > 0) {
-            console.log("nope")
             setErrors(newErrors);
         } else {
-            console.log("good")
-            let email = form.email
-            let username = form.username
-            let password = form.password
-            console.log({ email, username, password })
-            setShowSuccess(true)
-            setDisableButton(true)
-            // return api.createUser({ fname, lname, email, username, password })
-            //     .then(setShowSuccess(true))
-            //     .then(setDisableButton(true))
+            const input: AddUserInput = {
+                username: form.username,
+                email: form.email,
+                password: form.password,
+            };
+            addUser({ variables: input })
         }
     }
 
@@ -153,11 +168,6 @@ function Login() {
                                 <p>Please try again, or create an account by pressing the "Create Account" button below.</p>
                                 <button type="button" className="delete" onClick={() => setShowAlert(false)}>Got it!</button>
                             </div>
-                            {/* <Alert className="text-center" variant="danger">
-                                <Alert.Heading>We could not find an account matching that username and password.</Alert.Heading>
-                                <p>Please try again, or create an account by pressing the "Create Account" button below.</p>
-                                <button type="button" className="delete" onClick={() => setShowAlert(false)}>Got it!</button>
-                            </Alert> */}
                         </div>
                         :
                         <button>
