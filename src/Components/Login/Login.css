@@ -1,0 +1,245 @@
+/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------Container-------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    /* background: linear-gradient(45deg, var(--RedBrown), var(--Orange), var(--Orange), var(--Pink));
+    background-size: 600% 100%; */
+    background: linear-gradient(to right, 
+    var(--Pink) 0%, var(--Pink) 30%, 
+    var(--Orange) 30%, var(--Orange) 70%, 
+    var(--RedBrown) 70%, var(--RedBrown) 100%) repeat;
+    animation: gradient 6s linear infinite;
+    animation-direction: alternate;
+    overflow-x: hidden !important;
+    text-align: center;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0%
+    }
+
+    100% {
+        background-position: 100%
+    }
+}
+
+.createaccountModal {
+    padding: 20px !important;
+}
+
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------Header-------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+
+.wrapper h1 {
+    font-family: CourierPrime-Bold;
+    text-align: center;
+    font-size: 75px;
+    margin: 0;
+}
+
+.wrapper img {
+    height: 200px;
+    width: 200px;
+}
+
+.unlock {
+    animation: shake 1.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
+    }
+}
+
+/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------Create Account Modal-----------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------------------------*/
+
+.login {
+    justify-content: center !important;
+    text-align: center !important;
+    align-items: center !important;
+}
+
+.loginForm {
+    text-align: center !important;
+    margin: auto;
+    width: 25%
+}
+
+.loginForm button {
+    background: var(--Black);
+    color: var(--Pink);
+    width: 40%;
+    line-height: 1.5;
+    border: none;
+    border-radius: 0.375rem;
+    padding-top: 0.375rem;
+    padding-right: 0.75rem;
+    padding-bottom: 0.375rem;
+    padding-left: 0.75rem;
+    cursor: pointer;
+    transition: all .2s linear;
+}
+
+.loginForm button:hover {
+    color: var(--RedBrown);
+}
+
+.loginForm p {
+    margin-top: 12px;
+}
+
+/* .form-control {
+    background: inherit !important;
+    border: 1px solid black !important;
+    border-radius: 0.375rem !important;
+} */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.createaccountModal p {
+    animation: fadeIn 1s;
+    color: green;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.form-control {
+    background-color: rgb(51, 51, 51) !important;
+    color: white !important;
+    border: 1px solid var(--RedBrown) !important
+}
+
+.form-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid var(--Orange) !important;
+}
+
+.closeIt {
+    margin-right: 1vw;
+    border: var(--main-Border);
+    width: 40%;
+    height: 40px;
+    margin-bottom: 1vw;
+    border-radius: 0.375rem;
+    background-color: var(--RedBrown);
+    transition: all .5s cubic-bezier(.79, -1, .37, 2);
+}
+
+.closeIt:hover {
+    transform: scale(1.1);
+    color: var(--Black);
+    background-color: var(--Pink);
+}
+
+.createIt {
+    margin-left: 1vw;
+    border: var(--main-Border);
+    width: 40%;
+    height: 40px;
+    margin-bottom: 1vw;
+    border-radius: 0.375rem;
+    background-color: var(--Orange);
+    transition: all .5s cubic-bezier(.79, -1, .37, 2);
+}
+
+.createIt:hover {
+    transform: scale(1.1);
+    color: var(--Black);
+    background-color: var(--Pink);
+}
+
+.noLogin {
+    background-color: var(--Pink);
+    border-radius: 0.375rem;
+    padding: 20px;
+    color: var(--RedBrown);
+    animation: alertFadeIn 1s linear;
+}
+
+@keyframes alertFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.noLogin h4 {
+    font-size: 10px !important;
+}
+
+.noLogin p {
+    font-size: 8px !important;
+}
+
+.createAct {
+    margin-bottom: 40px;
+}
+
+

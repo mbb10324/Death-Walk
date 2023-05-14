@@ -94,5 +94,16 @@ export function difficulyReset(difficulty: string) {
     }
 }
 
+//function to test inputs after x amount of ms
+let timeoutId: any;
+export function debounce(ms: number, action: any) {
+    return (...args: any) => {
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            action(...args);
+        }, ms);
+    };
+}
+
 
 

@@ -20,7 +20,7 @@ export enum DifficultyTypes {
 
 interface GameState {
     playerIndex: [number, number];
-    gameArray: string[][]
+    gameArray: string[][];
     width: number;
     healthPoints: number;
     moves: number;
@@ -46,12 +46,13 @@ const gameReducer: Reducer<GameState, GameAction> = (state: GameState, action: G
         //fired each time the game starts/startsover
         case 'GameStarted':
             const thisDifficuly = difficulyReset(state.difficulty);
+            const newArray = buildGameArray(state.width);
             return {
                 ...state,
                 healthPoints: thisDifficuly.healthDiff,
                 moves: thisDifficuly.movesDiff,
                 playerIndex: [0, 0],
-                gameArray: buildGameArray(state.width),
+                gameArray: newArray,
                 gameCondition: 'new',
             };
         //fired on every arrow key press
@@ -61,7 +62,7 @@ const gameReducer: Reducer<GameState, GameAction> = (state: GameState, action: G
                     const newScore = updateScore(state.healthPoints, state.moves, newIndex, state.gameArray);
                     const updatedArray: string[][] = updateGameArray(state.gameArray, state.playerIndex, newIndex);
                     const nextGameState = isGameOver(newScore.remainingHealth, newScore.remainingMoves, newScore.newSquare);
-
+                    console.log(updatedArray)
                     return {
                         ...state,
                         playerIndex: newIndex,

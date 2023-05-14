@@ -75,6 +75,8 @@ SOFTWARE.
 - react-router-dom
 - react-bootstrap
 - bootstrap
+- graphql
+- @apollo/client
 
 # Getting Started with Create React App
 

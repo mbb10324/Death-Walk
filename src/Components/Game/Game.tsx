@@ -9,8 +9,20 @@ import Score from '../Score/Score';
 import Rules from '../Rules/Rules';
 import Difficulty from '../Difficulty/Difficulty';
 import ResultModals from '../ResultModals/ResultModals';
+import { useLazyQuery, useQuery, gql } from '@apollo/client';
+import { GET_AUTHORS } from '../../Helpers/Api';
 
 export default function Game() {
+    // const { loading, error, data } = useQuery(GET_AUTHORS);
+    // const { loading, error, data } = useQuery(GET_AUTHORS);
+    // if (loading) return <p>Loading...</p>;
+    // if (error) return <p>Error : {error.message}</p>;
+    // https://www.apollographql.com/docs/react/data/queries
+
+    // if (data) {
+    // console.log(data.books)
+    // }
+
     const game = useGame(); //Reducer to manage game state
 
     const score = useScore(); //custom hook to handle score states
@@ -19,7 +31,7 @@ export default function Game() {
         game.startGame();
         window.addEventListener('keydown', keyPress);
         return () => { window.removeEventListener('keydown', keyPress) };
-       // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -28,7 +40,7 @@ export default function Game() {
         } else if (game.gameCondition === 'loser') {
             score.loser();
         }
-       // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [game.gameCondition]);
 
     //called after each arrow key is pressed
@@ -43,6 +55,9 @@ export default function Game() {
 
     return (
         <div className='game-container'>
+            {/* {loading ? <p>LOADING...</p> :
+             error ? <p>ERROR:{error.message}</p> : */}
+            <>
             {/* contains the title and call to rules component */}
             <div className='left-container'>
                 <h1>Death Walk</h1>
@@ -78,6 +93,8 @@ export default function Game() {
                 <p>Copyright (c) 2023 Death Walk</p>
                 <p>&larr; Escape death on the pink square</p>
             </div>
+            </>
+            {/* }  */}
         </div>
     );
 };
