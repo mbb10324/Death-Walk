@@ -1,8 +1,8 @@
 import CreateAccount from "../CreateAccount/CreateAccount";
 import { useNavigate } from "react-router-dom";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { useEffect, useState, } from 'react';
-import { LOGIN } from "../../Api/Quieries";
+import { LOGIN, TOKEN } from "../../Api/Quieries";
 import skull from '../../images/skull.png';
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
@@ -21,13 +21,15 @@ function Login() {
     const [lock, setLock] = useState(false); //controls lock view
     const toggleLock = () => setLock(!lock); //toggles the lock view
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            navigate('/')
+    //check if user is already logged in
+    /******************************************************************************/
+    const storedToken = localStorage.getItem('token');
+    const { data: tokenData } = useQuery(TOKEN, {
+        variables: { value: storedToken || '' },  // Use a placeholder value when storedToken is null
+        onCompleted: (tokenData) => {
+            if (tokenData.token !== null) { navigate('/') }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    });
 
     //called when a user tries to login
     /**********************************************************************************************/

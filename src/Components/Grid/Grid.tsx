@@ -28,7 +28,7 @@ export default function Grid(props: Props) {
         return (
             <div
                 ref={getGridSizeRef}
-                className='grid-container'
+                className='w-2/4 h-full grid overflow-hidden shadow-3xl border-4 border-zinc-900 bg-zinc-900 relative'
                 style={{
                     //using css grid repeat function to build squares dynamically
                     gridTemplateColumns: `repeat(${numRows}, ${squareSize})`,

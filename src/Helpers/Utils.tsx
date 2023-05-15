@@ -3,16 +3,16 @@ import { easyHealth, easyMoves, hardHealth, hardMoves, mediumHealth, mediumMoves
 //builds the initial game array
 export function buildGameArray(width: number): string[][] {
     if (!((width % 2) === 1)) {
-    const blankArray = Array(width * width / 4).fill('blank');
-    const speederArray = Array(width * width / 4).fill('speeder');
-    const lavaArray = Array(width * width / 4).fill('lava');
-    const mudArray = Array(width * width / 4).fill('mud');
-    const combinedArray = blankArray.concat(speederArray, lavaArray, mudArray);
-    const shuffledArray = fisherYatesShuffle(combinedArray);
-    shuffledArray[0] = 'player';
-    shuffledArray[shuffledArray.length - 1] = 'end';
-    const twoD = makeTwoD(shuffledArray, width)
-    return twoD;
+        const blankArray = Array(width * width / 4).fill('blank');
+        const speederArray = Array(width * width / 4).fill('speeder');
+        const lavaArray = Array(width * width / 4).fill('lava');
+        const mudArray = Array(width * width / 4).fill('mud');
+        const combinedArray = blankArray.concat(speederArray, lavaArray, mudArray);
+        const shuffledArray = fisherYatesShuffle(combinedArray);
+        shuffledArray[0] = 'player';
+        shuffledArray[shuffledArray.length - 1] = 'end';
+        const twoD = makeTwoD(shuffledArray, width)
+        return twoD;
     } else {
         alert('ERROR: The number of rows/width of the game needs to be an EVEN number.')
         throw new Error('The number of rows/width of the game needs to be an EVEN number.')
@@ -43,7 +43,7 @@ function fisherYatesShuffle(array: any[]) {
 };
 
 //finds the next index the player is moving to
-export function findIndex( gameArray: string[][], oldIndex: [number, number], direction: string ): [number, number] {
+export function findIndex(gameArray: string[][], oldIndex: [number, number], direction: string): [number, number] {
     const [oldRow, oldCol] = oldIndex;
     let newRow = oldRow;
     let newCol = oldCol;
@@ -60,7 +60,7 @@ export function findIndex( gameArray: string[][], oldIndex: [number, number], di
 }
 
 //forms the trail that the player has traveled in
-export function updateGameArray( grid: string[][], oldIndex: number[], newIndex: number[]) {
+export function updateGameArray(grid: string[][], oldIndex: number[], newIndex: number[]) {
     const updatedGrid = [...grid];
     updatedGrid[oldIndex[0]][oldIndex[1]] = "visited";
     updatedGrid[newIndex[0]][newIndex[1]] = "player";
@@ -107,14 +107,25 @@ export function debounce(ms: number, action: any) {
     };
 }
 
+//function to test inputs after x amount of ms
+let timeoutIdResize: any;
+export function debounceResize(ms: number, action: any) {
+    return (...args: any) => {
+        if (timeoutIdResize) clearTimeout(timeoutIdResize);
+        timeoutIdResize = setTimeout(() => {
+            action(...args);
+        }, ms);
+    };
+}
+
 //function to check for an empty or null object
 export function isEmpty(errors: any) {
     for (var key in errors) {
         if (errors.hasOwnProperty(key) && errors[key] === null) {
             return true
-        } 
+        }
     }
-    if (Object.keys(errors).length === 0 ) {
+    if (Object.keys(errors).length === 0) {
         return true
     } else {
         return false

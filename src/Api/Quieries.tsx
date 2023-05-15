@@ -48,3 +48,10 @@ export const USER = gql`
             }
         }
     }`;
+
+export const TOKEN  = gql`
+    query token($value: String!){
+        token(value: $value) {
+            value
+        }
+    }`;

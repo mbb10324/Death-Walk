@@ -4,6 +4,10 @@
     overflow-x: hidden;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --main-Border: 1px solid #252525;
     --Black: #252525;
@@ -17,10 +21,10 @@
 
 .App {
     display: relative;
-    background: linear-gradient(to bottom, 
-    var(--Pink) 0%, var(--Pink) 35%, 
-    var(--Orange) 35%, var(--Orange) 68%, 
-    var(--RedBrown) 68%, var(--RedBrown) 100%) repeat;
+    background: linear-gradient(to bottom,
+            var(--Pink) 0%, var(--Pink) 35%,
+            var(--Orange) 35%, var(--Orange) 68%,
+            var(--RedBrown) 68%, var(--RedBrown) 100%) repeat;
     font-family: 'CourierPrime-Regular';
     color: var(--Black);
     height: 100vh;

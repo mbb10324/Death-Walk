@@ -3,16 +3,18 @@ import LifetimeScores from '../LifetimeScores/LifetimeScores';
 import ResultModals from '../ResultModals/ResultModals';
 import BugReporter from '../BugReportModal/BugReportModal';
 import { useGame, useScore } from '../../Helpers/Hooks';
-import { useEffect, KeyboardEvent } from 'react';
+import { useEffect, KeyboardEvent, useState } from 'react';
 import Difficulty from '../Difficulty/Difficulty';
 import { useNavigate } from "react-router-dom";
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
+import { TOKEN } from '../../Api/Quieries';
 import laugh from '../../images/laugh.png';
 import skull from '../../images/skull.png';
 import Score from '../Score/Score';
 import Rules from '../Rules/Rules';
 import Grid from '../Grid/Grid';
 import './Game.css';
+import { debounceResize } from '../../Helpers/Utils';
 
 export default function Game() {
     const navigate = useNavigate(); //navigate var
@@ -26,6 +28,35 @@ export default function Game() {
     const [addEasy] = useMutation(ADD_EASY);
     const [addMedium] = useMutation(ADD_MEDIUM);
     const [addHard] = useMutation(ADD_HARD);
+    const [dataReady, setDataReady] = useState(false)
+    const [resize, setResize] = useState(false)
+
+    //on mount, sets up the initial game, and checks for user token
+    /**********************************************************************************************/
+    const { data: tokenData, loading, error } = useQuery(TOKEN, {
+        fetchPolicy: 'no-cache',
+        variables: { value: storedToken || '' },
+        onCompleted: (tokenData) => {
+            setDataReady(true)
+            if (tokenData.token === null) {
+                navigate('/Login')
+            }
+        }
+    });
+
+    useEffect(() => {
+        game.startGame();
+        window.addEventListener('keydown', keyPress);
+        window.addEventListener('resize', handleResizeDebounce);
+        return () => { window.removeEventListener('keydown', keyPress); window.removeEventListener('resize', handleResize) };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dataReady, resize]);
+
+    const handleResizeDebounce = debounceResize(1000, handleResize)
+    function handleResize() {
+        const difficulty: any = game.difficulty
+        game.changeDifficulty(difficulty)
+    }
 
     //called when a user presses the logout button
     /**********************************************************************************************/
@@ -37,20 +68,6 @@ export default function Game() {
         localStorage.removeItem('email')
         navigate('/Login');
     }
-
-    //fires on mount and sets up the initial game
-    /**********************************************************************************************/
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (!token) {
-            navigate('/Login');
-        } else {
-            game.startGame();
-            window.addEventListener('keydown', keyPress);
-            return () => { window.removeEventListener('keydown', keyPress) };
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     //fires every time the game condition changes to check for a winner or loser
     /**********************************************************************************************/
@@ -88,22 +105,26 @@ export default function Game() {
         };
     };
 
+    if (loading) {
+        return <h1 style={{ textAlign: 'center' }}>Loading...</h1>
+    }
+
     /**********************************************************************************************/
     return (
         <>
-            <h1 className='headerh1'>Death Walk</h1>
-            <div className='game-container'>
+            <h1 className='text-lg font-cp-bold text-center -mt-1 -mb-2'>Death Walk</h1>
+            <div className='w-full flex flex-row justify-items-center overflow-auto'>
                 {/* contains the title and call to rules component */}
-                <div className='left-container'>
-                    <h2>Welcome @{localStorage.getItem('user')}</h2>
+                <div className='left-container w-1/4 h-full text-center items-center justify-center flex flex-col'>
+                    <h2 className='text-base font-cp-bold'>Welcome @{localStorage.getItem('user')}</h2>
                     <button onClick={logout}>Logout</button>
-                    <img src={skull} alt='' />
+                    <img className='w-full h-auto' src={skull} alt='' />
                     <Rules />
                 </div>
                 {/* calls the component that builds the squares */}
                 <Grid gameArray={game.grid} />
                 {/* contains the call to score and bug report components; and license/contact info */}
-                <div className='right-container'>
+                <div className='right-container w-1/4'>
                     <Score
                         healthPoints={game.health}
                         moves={game.moves}
@@ -116,6 +137,7 @@ export default function Game() {
                         changeDifficulty={game.changeDifficulty}
                         resetCounters={score.resetCounters}
                     />
+
                     <ResultModals
                         clickedRestart={() => game.startGame()}
                         setShowWin={score.setShowWin}
@@ -132,6 +154,5 @@ export default function Game() {
             </div>
             <LifetimeScores gameCondition={game.gameCondition} />
         </>
-
     );
 };
