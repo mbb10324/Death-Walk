@@ -1,0 +1,21 @@
+.lifetime-container {
+    text-align: center;
+}
+
+.lifetime-container h1 {
+    text-decoration: underline;
+    font-size: 2.5vw;
+}
+
+.lifetime-record {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.lifetime-record h2 {
+    font-size: 2vw;
+}
+
+.lifetime-record p {
+    font-size: 1.3vw;
+}

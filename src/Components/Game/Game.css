@@ -4,9 +4,15 @@
     display: grid;
     grid-template-columns: 25% 50% 25%;
     justify-items: center;
-    padding-top: 2%;
-    padding-bottom: 2%;
     overflow: auto;
+}
+
+.headerh1 {
+    font-size: 3vw;
+    text-align: center !important;
+    font-family: 'CourierPrime-Bold' !important;
+    margin-top: -5px !important;
+    margin-bottom: -13px !important;
 }
 
 .right-container {
@@ -47,11 +53,32 @@
 }
 
 .left-container img {
-    height: 25vw;
+    height: 22vw;
     width: auto;
 }
 
 .left-container h1 {
     font-size: 3vw;
     font-family: 'CourierPrime-Bold';
+}
+
+.left-container h2 {
+    font-size: 2.3vw;
+    font-family: 'CourierPrime-Bold';
+}
+
+.left-container button {
+    border: var(--main-Border);
+    width: 50%;
+    height: 3vw;
+    margin-bottom: 1vw;
+    border-radius: 3rem;
+    background-color: var(--RedBrown);
+    transition: all .5s cubic-bezier(.79, -1, .37, 2);
+}
+
+.left-container button:hover {
+    transform: scale(1.2);
+    color: var(--White);
+    background-color: var(--Black);
 }

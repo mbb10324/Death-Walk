@@ -59,6 +59,7 @@ export function findIndex( gameArray: string[][], oldIndex: [number, number], di
     return [newRow, newCol];
 }
 
+//forms the trail that the player has traveled in
 export function updateGameArray( grid: string[][], oldIndex: number[], newIndex: number[]) {
     const updatedGrid = [...grid];
     updatedGrid[oldIndex[0]][oldIndex[1]] = "visited";
@@ -82,6 +83,7 @@ export function isGameOver(moves: number, health: number, newSquare: string): 'l
     else return 'running'
 };
 
+//defines health and moves based off difficulty
 export function difficulyReset(difficulty: string) {
     if (difficulty === 'easy') {
         return { healthDiff: easyHealth, movesDiff: easyMoves };
@@ -103,6 +105,36 @@ export function debounce(ms: number, action: any) {
             action(...args);
         }, ms);
     };
+}
+
+//function to check for an empty or null object
+export function isEmpty(errors: any) {
+    for (var key in errors) {
+        if (errors.hasOwnProperty(key) && errors[key] === null) {
+            return true
+        } 
+    }
+    if (Object.keys(errors).length === 0 ) {
+        return true
+    } else {
+        return false
+    }
+}
+
+//function to find errors when a user tries to create an account
+export function findFormErrors(form: any, errors: any) {
+    let { email, username, password, confirm } = form;
+    let strongPassword = new RegExp("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})");
+    let newErrors = { ...errors };
+    if (!email || email === "") newErrors.email = "This is a required field.";
+    else if (!email.includes("@")) newErrors.email = "Please provide a valid E-mail address.";
+    else if (email.length > 80) newErrors.email = "We do not support E-mails this long.";
+    if (!username || username === "") newErrors.username = "This is a required field.";
+    if (!password || password === "") newErrors.password = "This is a required field.";
+    else if (!password.match(strongPassword)) newErrors.password = "Must be at least 8 characters, contain at least one uppercase, one lowercase, one digit, and one special character.";
+    if (!confirm || confirm === "") newErrors.confirm = "This is a required field.";
+    else if (confirm !== password) newErrors.confirm = "Please ensure your password and password confirmation match"
+    return newErrors;
 }
 
 

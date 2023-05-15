@@ -2,6 +2,8 @@ import { useReducer, useState, useRef, useEffect, Reducer } from "react";
 import { buildGameArray, difficulyReset, findIndex, isGameOver, updateGameArray, updateScore } from "./Utils";
 import { easyHealth, easyMoves, easyWidth, hardHealth, hardMoves, hardWidth, mediumHealth, mediumMoves, mediumWidth } from "./Globals";
 
+//all types used throughout this file
+/**********************************************************************************************/
 export type ArrowKey = 'ArrowLeft' | 'ArrowRight' | 'ArrowUp' | 'ArrowDown'
 
 export type Result = 'loser' | 'winner' | 'continue'
@@ -29,6 +31,8 @@ interface GameState {
     gameCondition: 'new' | 'running' | 'winner' | 'loser';
 }
 
+//reducer used to handle game state
+/**********************************************************************************************/
 const initialGameState: GameState = {
     playerIndex: [0, 0],
     gameArray: [[]],
@@ -40,7 +44,6 @@ const initialGameState: GameState = {
     gameCondition: 'new',
 };
 
-//REDUCER STARTS HERE ******************************
 const gameReducer: Reducer<GameState, GameAction> = (state: GameState, action: GameAction): GameState => {
     switch (action.type) {
         //fired each time the game starts/startsover
@@ -143,11 +146,13 @@ export function useGame() {
         width: state.width,
         health: state.healthPoints,
         moves: state.moves,
+        difficulty: state.difficulty,
         gameCondition: state.gameCondition,
     };
 };
 
 //custom hook to stucture shared state changes
+/**********************************************************************************************/
 export function useScore() {
     const [showLose, setShowLose] = useState<boolean>(false); //bool state for showing loser modal
     const [showWin, setShowWin] = useState<boolean>(false); //bool state for showing winner modal
@@ -181,6 +186,7 @@ export function useScore() {
 };
 
 //custom hook to check for first render
+/**********************************************************************************************/
 export function useMount() {
     const isMountRef = useRef(false);
     useEffect(() => {

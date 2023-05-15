@@ -6,6 +6,7 @@ type Props = { gameArray: string[][] };
 
 export default function Grid(props: Props) {
     //get numRows, and squareSize to build grid
+    /**********************************************************************************************/
     const { gameArray } = props;
     const getGridSizeRef = useRef<HTMLDivElement>(null);
 
@@ -22,6 +23,7 @@ export default function Grid(props: Props) {
     const squareSize = getSquareSize()
 
     //prevent react from re rendering entire grid with useMemo
+    /**********************************************************************************************/
     const memoizeSquares = useMemo(() => {
         return (
             <div
