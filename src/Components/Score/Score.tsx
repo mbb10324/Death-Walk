@@ -14,14 +14,14 @@ export default function Score(props: Props) {
     return (
         <>
             {/* displays all the score and game data */}
-            <div className='score'>
-                <h1>SCORE</h1>
-                <h3>Health: {healthPoints}</h3>
-                <h3>Moves: {moves}</h3>
+            <div className='relative'>
+                <h1 className='text-xl font-cp-bold'>SCORE</h1>
+                <h3 className='text-sm'>Health: {healthPoints}</h3>
+                <h3 className='text-sm'>Moves: {moves}</h3>
                 <br></br>
-                <h3>Games Played: {gamesPlayed}</h3>
-                <h3>Loses: {loses}</h3>
-                <h3>Wins: {wins}</h3>
+                <h3 className='text-sm'>Games Played: {gamesPlayed}</h3>
+                <h3 className='text-sm'>Loses: {loses}</h3>
+                <h3 className='text-sm'>Wins: {wins}</h3>
                 <br></br>
             </div>
         </>

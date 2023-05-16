@@ -22,9 +22,10 @@ export default function BugReportButton() {
 
     return (
         <>
-            <button onClick={() => setShowBugReport(true)}>Report Bugs</button>
-            <Modal show={showBugReport} onHide={() => setShowBugReport(false)}>
-                <Modal.Header closeButton>
+            {/* WHOLE COMPONENT CUSTOM CSS*/}
+            <button className='reportBugBtn' onClick={() => setShowBugReport(true)}>Report Bugs</button>
+            <Modal show={showBugReport}>
+                <Modal.Header>
                     <Modal.Title>Report a bug</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -66,7 +67,8 @@ export default function BugReportButton() {
                                 We'll never share your email with anyone else.
                             </Form.Text>
                         </Form.Group>
-                        <button className='modalBtn'>Submit</button>
+                        <button className='modalBtn mr-5' onClick={() => setShowBugReport(false)}>Close</button> {/* CSS IN ReportModal.css */}
+                        <button className='modalBtn'>Submit</button> {/* CSS IN ReportModal.css */}
                     </Form>
                 </Modal.Body>
             </Modal>

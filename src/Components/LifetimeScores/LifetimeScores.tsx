@@ -21,36 +21,36 @@ export default function LifetimeScores(props: Props) {
     }, [gameCondition])
 
     return (
-        <div className="lifetime-container">
-            <h1>Lifetime Record</h1>
-            <div className="lifetime-record">
+        <div className="text-center mb-3">
+            <h1 className="underline text-lg">Lifetime Record</h1>
+            <div className="grid grid-cols-3">
                 <div>
-                    <h2>Easy Games</h2>
-                    {userLoading ? <p>Loading History....</p> :
+                    <h2 className="text-base">Easy Games</h2>
+                    {userLoading ? <p className="text-sm">Loading History....</p> :
                         <>
-                            <p>Games: {userData.user.easyGames ? userData.user.easyGames.games : 'no games played'}</p>
-                            <p>Wins: {userData.user.easyGames ? userData.user.easyGames.wins : 'no wins yet'}</p>
-                            <p>Loses: {userData.user.easyGames ? userData.user.easyGames.loses : 'no loses yet'}</p>
+                            <p className="text-sm">Games: {userData.user.easyGames ? userData.user.easyGames.games : 'no games played'}</p>
+                            <p className="text-sm">Wins: {userData.user.easyGames ? userData.user.easyGames.wins : 'no wins yet'}</p>
+                            <p className="text-sm">Loses: {userData.user.easyGames ? userData.user.easyGames.loses : 'no loses yet'}</p>
                         </>
                     }
                 </div>
                 <div>
-                    <h2>Medium Games</h2>
-                    {userLoading ? <p>Loading History....</p> :
+                    <h2 className="text-base">Medium Games</h2>
+                    {userLoading ? <p className="text-sm">Loading History....</p> :
                         <>
-                            <p>Games: {userData.user.mediumGames ? userData.user.mediumGames.games : 'no games played'}</p>
-                            <p>Wins: {userData.user.mediumGames ? userData.user.mediumGames.wins : 'no wins yet'}</p>
-                            <p>Loses: {userData.user.mediumGames ? userData.user.mediumGames.loses : 'no loses yet'}</p>
+                            <p className="text-sm">Games: {userData.user.mediumGames ? userData.user.mediumGames.games : 'no games played'}</p>
+                            <p className="text-sm">Wins: {userData.user.mediumGames ? userData.user.mediumGames.wins : 'no wins yet'}</p>
+                            <p className="text-sm">Loses: {userData.user.mediumGames ? userData.user.mediumGames.loses : 'no loses yet'}</p>
                         </>
                     }
                 </div>
                 <div>
-                    <h2>Hard Games</h2>
-                    {userLoading ? <p>Loading History....</p> :
+                    <h2 className="text-base">Hard Games</h2>
+                    {userLoading ? <p className="text-sm">Loading History....</p> :
                         <>
-                            <p>Games: {userData.user.hardGames ? userData.user.hardGames.games : 'no games played'}</p>
-                            <p>Wins: {userData.user.hardGames ? userData.user.hardGames.wins : 'no wins yet'}</p>
-                            <p>Loses: {userData.user.hardGames ? userData.user.hardGames.loses : 'no loses yet'}</p>
+                            <p className="text-sm">Games: {userData.user.hardGames ? userData.user.hardGames.games : 'no games played'}</p>
+                            <p className="text-sm">Wins: {userData.user.hardGames ? userData.user.hardGames.wins : 'no wins yet'}</p>
+                            <p className="text-sm">Loses: {userData.user.hardGames ? userData.user.hardGames.loses : 'no loses yet'}</p>
                         </>
                     }
                 </div>

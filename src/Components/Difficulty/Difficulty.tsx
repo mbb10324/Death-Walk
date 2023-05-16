@@ -17,16 +17,16 @@ export default function Difficulty(props: Props) {
     };
 
     return (
-        <div className='difficulty'>
-            <h1>DIFFICULTY</h1>
+        <div className='difficulty w-full relative overflow-hidden pb-[2.8vw]'>
+            <h1 className='text-xl font-cp-bold'>DIFFICULTY</h1>
             {/* map over Difficulty type to ensure no type mismatches */}
-            <select onChange={selectDifficulty} defaultValue='medium' disabled={gameInProgress}>
+            <select onChange={selectDifficulty} defaultValue='medium' disabled={gameInProgress}>{/*CUSTOM CSS*/}
                 {Object.entries(DifficultyTypes).map(([key, value]) => (
                     <option key={key} value={value}>{key.toUpperCase()}</option>
                 ))}
             </select>
             {/* make player wait till game ends to change difficulty */}
-            {gameInProgress ? <p>you can change difficulty after the round ends.</p> : ''}
+            {gameInProgress ? <p className='afterRound'>you can change difficulty after the round ends.</p> : <br></br>}{/*CUSTOM CSS*/}
         </div>
     );
 };

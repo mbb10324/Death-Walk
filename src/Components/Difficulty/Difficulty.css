@@ -1,14 +1,3 @@
-.difficulty {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    padding-bottom: 2.5vw;
-}
-
-.difficulty h1 {
-    font-size: 2.8vw;
-}
-
 .difficulty select {
     border: var(--main-Border);
     width: 50%;
@@ -17,10 +6,10 @@
     background-color: var(--Pink);
     text-align: center;
     cursor: pointer;
-    font-size: 1.2vw;
+    font-size: 1.5vw;
 }
 
-.difficultyr select option {
+.difficulty select option {
     background-color: var(--Pink);
 }
 

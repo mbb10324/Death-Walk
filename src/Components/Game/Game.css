@@ -1,82 +1,16 @@
-.game-container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 25% 50% 25%;
-    justify-items: center;
-    overflow: auto;
-}
-
-/* .headerh1 {
-    font-size: 3vw;
-    text-align: center !important;
-    font-family: 'CourierPrime-Bold' !important;
-    margin-top: -5px !important;
-    margin-bottom: -13px !important;
-} */
-
-.right-container {
-    text-align: center;
-    /* width: 100%; */
-    height: 100%;
-}
-
-.right-container h1 {
-    font-family: 'CourierPrime-Bold';
-}
-
-.right-container h3 {
-    font-size: 1.2vw;
-}
-
-.right-container p {
-    line-height: 1rem;
-    font-size: .8vw;
-    margin-bottom: .5rem;
-    width: 100%;
-    overflow: hidden;
-}
-
-.right-container img {
-    border-radius: 60%;
-    filter: brightness(60%);
-    margin-bottom: 3%;
-    transform: rotate(15deg);
-    height: 10vw;
-    width: auto;
-}
-
-/* .left-container {
-    text-align: center;
-    width: 100%;
-    height: 100%;
-} */
-
-/* .left-container img {
-    height: 22vw;
-    width: auto;
-} */
-
-.left-container h1 {
-    font-size: 3vw;
-    font-family: 'CourierPrime-Bold';
-}
-
-.left-container h2 {
-    /* font-size: 2.3vw; */
-    /* font-family: 'CourierPrime-Bold'; */
-}
-
-.left-container button {
+.logoutBtn {
     border: var(--main-Border);
+    font-size: 1.5vw;
     width: 50%;
     height: 3vw;
     margin-bottom: 1vw;
     border-radius: 3rem;
     background-color: var(--RedBrown);
+    overflow: hidden;
     transition: all .5s cubic-bezier(.79, -1, .37, 2);
 }
 
-.left-container button:hover {
+.logoutBtn:hover {
     transform: scale(1.2);
     color: var(--White);
     background-color: var(--Black);

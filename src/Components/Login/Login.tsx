@@ -63,9 +63,7 @@ function Login() {
             {/* title */}
             <h1>Death Walk</h1>
             {/* the lock */}
-            {!lock ? <img src={skull} alt='' /> :
-                <img src={skull} className="unlock" alt='' />
-            }
+            {!lock ? <img src={skull} alt='' /> : <img src={skull} className="unlock" alt='' />}
             {/* login form */}
             <div className='loginForm'>
                 <Form className="login" onSubmit={tryLogin}>

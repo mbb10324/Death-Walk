@@ -1,51 +1,30 @@
-.rules {
-    width: 100%;
-}
-
-.rules ul {
-    overflow-wrap: break-word;
-    margin-left: 2%;
-}
-
-.rules li {
-    display: flex;
-    flex-direction: left;
-    line-height: 2rem;
-    font-size: 1vw;
-}
-
-.rules h1 {
-    text-align: center;
-    font-size: 2.5vw;
-}
-
 .blankSquare {
-    height: 25px;
-    width: 25px;
+    height: 2.5vw;
+    width: 2.5vw;
     background-color: darkgray;
     border: var(--main-Border);
     margin-right: 10px;
 }
 
 .pinkSquare {
-    height: 25px;
-    width: 25px;
+    height: 2.5vw;
+    width: 2.5vw;
     background-color: var(--Pink);
     border: var(--main-Border);
     margin-right: 10px;
 }
 
 .orangeSquare {
-    height: 25px;
-    width: 25px;
+    height: 2.5vw;
+    width: 2.5vw;
     background-color: var(--Orange);
     border: var(--main-Border);
     margin-right: 10px;
 }
 
 .redSquare {
-    height: 25px;
-    width: 25px;
+    height: 2.5vw;
+    width: 2.5vw;
     background-color: var(--RedBrown);
     border: var(--main-Border);
     margin-right: 10px;

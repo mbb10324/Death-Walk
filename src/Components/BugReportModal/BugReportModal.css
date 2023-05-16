@@ -17,17 +17,19 @@
     border: 1px solid var(--Orange) !important;
 }
 
-.right-container button {
+.reportBugBtn {
     border: var(--main-Border);
+    font-size: 1.5vw;
     width: 50%;
     height: 3vw;
     margin-bottom: 1vw;
     border-radius: 3rem;
     background-color: var(--Orange);
+    overflow: hidden;
     transition: all .5s cubic-bezier(.79, -1, .37, 2);
 }
 
-.right-container button:hover {
+.reportBugBtn:hover {
     transform: scale(1.2);
     color: var(--White);
     background-color: var(--Black);

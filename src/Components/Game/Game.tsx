@@ -112,19 +112,19 @@ export default function Game() {
     /**********************************************************************************************/
     return (
         <>
-            <h1 className='text-lg font-cp-bold text-center -mt-1 -mb-2'>Death Walk</h1>
-            <div className='w-full flex flex-row justify-items-center overflow-auto'>
+            <h1 className='text-xl font-cp-bold text-center -mt-1 -mb-2'>Death Walk</h1>
+            <div className='w-full h-fit flex justify-items-center'>
                 {/* contains the title and call to rules component */}
-                <div className='left-container w-1/4 h-full text-center items-center justify-center flex flex-col'>
+                <div className='w-1/4 h-fit text-center items-center flex flex-col'>
                     <h2 className='text-base font-cp-bold'>Welcome @{localStorage.getItem('user')}</h2>
-                    <button onClick={logout}>Logout</button>
+                    <button className='logoutBtn' onClick={logout}>Logout</button> {/*CUSTOM CSS*/}
                     <img className='w-full h-auto' src={skull} alt='' />
                     <Rules />
                 </div>
                 {/* calls the component that builds the squares */}
                 <Grid gameArray={game.grid} />
                 {/* contains the call to score and bug report components; and license/contact info */}
-                <div className='right-container w-1/4'>
+                <div className='w-1/4  h-fit text-center items-center flex flex-col'>
                     <Score
                         healthPoints={game.health}
                         moves={game.moves}
@@ -137,7 +137,6 @@ export default function Game() {
                         changeDifficulty={game.changeDifficulty}
                         resetCounters={score.resetCounters}
                     />
-
                     <ResultModals
                         clickedRestart={() => game.startGame()}
                         setShowWin={score.setShowWin}
@@ -145,11 +144,11 @@ export default function Game() {
                         showWin={score.showWin}
                         showLose={score.showLose}
                     />
-                    <h3>Good Luck!</h3>
-                    <img src={laugh} alt='' />
+                    <h3 className='text-xs mb-2 overflow-hidden'>Good Luck!</h3>
+                    <img className='rotate-12 rounded-full brightness-50 w-9/12 mb-3' src={laugh} alt='' />
                     <BugReporter />
-                    <p>Copyright (c) 2023 Death Walk</p>
-                    <p>&larr; Escape death on the pink square</p>
+                    <p className='text-xs mb-2 overflow-hidden'>Copyright (c) 2023 Death Walk</p>
+                    <p className='text-xs mb-2 overflow-hidden'>&larr; Escape death on the pink square</p>
                 </div>
             </div>
             <LifetimeScores gameCondition={game.gameCondition} />
