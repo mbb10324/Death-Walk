@@ -27,7 +27,7 @@ interface GameState {
     healthPoints: number;
     moves: number;
     newSquare: string;
-    difficulty: string;
+    difficulty: DifficultyTypes;
     gameCondition: 'new' | 'running' | 'winner' | 'loser';
 }
 
@@ -40,7 +40,7 @@ const initialGameState: GameState = {
     healthPoints: mediumHealth,
     moves: mediumMoves,
     newSquare: '',
-    difficulty: 'medium',
+    difficulty: 'medium' as DifficultyTypes,
     gameCondition: 'new',
 };
 
@@ -60,34 +60,34 @@ const gameReducer: Reducer<GameState, GameAction> = (state: GameState, action: G
             };
         //fired on every arrow key press
         case 'KeyPressed':
-                if (state.gameCondition !== 'loser' && state.gameCondition !== 'winner') {
-                    const newIndex = findIndex(state.gameArray, state.playerIndex, action.key);
-                    const newScore = updateScore(state.healthPoints, state.moves, newIndex, state.gameArray);
-                    const updatedArray: string[][] = updateGameArray(state.gameArray, state.playerIndex, newIndex);
-                    const nextGameState = isGameOver(newScore.remainingHealth, newScore.remainingMoves, newScore.newSquare);
-                    
-                    return {
-                        ...state,
-                        playerIndex: newIndex,
-                        gameArray: updatedArray,
-                        healthPoints: newScore.remainingHealth,
-                        moves: newScore.remainingMoves,
-                        newSquare: newScore.newSquare,
-                        gameCondition: nextGameState,
-                    };
-                } else {
-                    return state
-                }
+            if (state.gameCondition !== 'loser' && state.gameCondition !== 'winner') {
+                const newIndex = findIndex(state.gameArray, state.playerIndex, action.key);
+                const newScore = updateScore(state.healthPoints, state.moves, newIndex, state.gameArray);
+                const updatedArray: string[][] = updateGameArray(state.gameArray, state.playerIndex, newIndex);
+                const nextGameState = isGameOver(newScore.remainingHealth, newScore.remainingMoves, newScore.newSquare);
+
+                return {
+                    ...state,
+                    playerIndex: newIndex,
+                    gameArray: updatedArray,
+                    healthPoints: newScore.remainingHealth,
+                    moves: newScore.remainingMoves,
+                    newSquare: newScore.newSquare,
+                    gameCondition: nextGameState,
+                };
+            } else {
+                return state
+            }
         default:
             return state
-        
+
         //fired after changing difficulties
         case 'DifficultyChanged':
             switch (action.difficulty) {
                 case 'easy':
                     return {
                         ...state,
-                        difficulty: 'easy',
+                        difficulty: 'easy' as DifficultyTypes,
                         width: easyWidth,
                         healthPoints: easyHealth,
                         moves: easyMoves,
@@ -98,7 +98,7 @@ const gameReducer: Reducer<GameState, GameAction> = (state: GameState, action: G
                 case 'medium':
                     return {
                         ...state,
-                        difficulty: 'medium',
+                        difficulty: 'medium' as DifficultyTypes,
                         width: mediumWidth,
                         healthPoints: mediumHealth,
                         moves: mediumMoves,
@@ -109,7 +109,7 @@ const gameReducer: Reducer<GameState, GameAction> = (state: GameState, action: G
                 case 'hard':
                     return {
                         ...state,
-                        difficulty: 'hard',
+                        difficulty: 'hard' as DifficultyTypes,
                         width: hardWidth,
                         healthPoints: hardHealth,
                         moves: hardMoves,

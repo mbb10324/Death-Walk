@@ -29,11 +29,10 @@ export default function Game() {
     const [addMedium] = useMutation(ADD_MEDIUM);
     const [addHard] = useMutation(ADD_HARD);
     const [dataReady, setDataReady] = useState(false)
-    const [resize, setResize] = useState(false)
 
     //on mount, sets up the initial game, and checks for user token
     /**********************************************************************************************/
-    const { data: tokenData, loading, error } = useQuery(TOKEN, {
+    const { loading } = useQuery(TOKEN, {
         fetchPolicy: 'no-cache',
         variables: { value: storedToken || '' },
         onCompleted: (tokenData) => {
@@ -47,16 +46,20 @@ export default function Game() {
     useEffect(() => {
         game.startGame();
         window.addEventListener('keydown', keyPress);
-        window.addEventListener('resize', handleResizeDebounce);
-        return () => { window.removeEventListener('keydown', keyPress); window.removeEventListener('resize', handleResize) };
+        return () => { window.removeEventListener('keydown', keyPress); };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dataReady, resize]);
+    }, [dataReady]);
 
-    const handleResizeDebounce = debounceResize(1000, handleResize)
-    function handleResize() {
-        const difficulty: any = game.difficulty
-        game.changeDifficulty(difficulty)
-    }
+    useEffect(() => {
+        const handleResizeDebounce = debounceResize(1000, handleResize)
+        function handleResize() {
+            game.changeDifficulty(game.difficulty)
+        }
+        window.addEventListener('resize', handleResizeDebounce);
+        return () => window.removeEventListener('resize', handleResizeDebounce)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [game.difficulty, game.changeDifficulty])
+
 
     //called when a user presses the logout button
     /**********************************************************************************************/
@@ -112,7 +115,7 @@ export default function Game() {
     /**********************************************************************************************/
     return (
         <>
-            <h1 className='text-xl font-cp-bold text-center -mt-1 -mb-2'>Death Walk</h1>
+            <h1 className='text-xl font-cp-bold text-center'>Death Walk</h1>
             <div className='w-full h-fit flex justify-items-center'>
                 {/* contains the title and call to rules component */}
                 <div className='w-1/4 h-fit text-center items-center flex flex-col'>

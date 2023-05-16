@@ -1,14 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/Components/Game/Game.tsx",
-    "./src/Components/Grid/Grid.tsx",
-    "./src/Components/Rules/Rules.tsx",
-    "./src/Components/Score/Score.tsx",
-    "./src/Components/Difficulty/Difficulty.tsx",
-    "./src/Components/BugReportModal/BugReportModal.tsx",
-    "./src/Components/LifetimeScores/LifetimeScores.tsx",
-  ],
+    content: ["./src/**/*.{html,js,ts,tsx}"],
   theme: {
     fontSize: {
         'xs': '1vw',
@@ -17,10 +9,27 @@ module.exports = {
         'lg': '2.5vw',
         'xl': '3vw',
     },
+    translate: {
+        '2/4': '-50%'
+    },
     fontFamily: {
         'cp-bold': ['CourierPrime-Bold']
     },
     extend: {
+        transitionProperty: {
+            'custom': 'all .5s cubic-bezier(.79, -1, .37, 2)'
+        },
+        colors: {
+            lime: {
+                500: '#993333'
+            }
+        },
+        keyframes: {
+            fadeIn: {
+            '0%': 'opacity: 0',
+            '100%': 'opacity: 1'
+            }
+        },
         padding: {
             '1/2': '50%',
             full: '100%',

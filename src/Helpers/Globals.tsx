@@ -20,15 +20,17 @@ declare global {
     }
 };
 
-export const easyWidth = Number(process.env.REACT_APP_EASY_WIDTH)
-export const mediumWidth = Number(process.env.REACT_APP_MEDIUM_WIDTH)
-export const hardWidth = Number(process.env.REACT_APP_HARD_WIDTH)
-export const easyHealth = Number(process.env.REACT_APP_EASY_HEALTH)
-export const mediumHealth = Number(process.env.REACT_APP_MEDIUM_HEALTH)
-export const hardHealth = Number(process.env.REACT_APP_HARD_HEALTH)
-export const easyMoves = Number(process.env.REACT_APP_EASY_MOVES)
-export const mediumMoves = Number(process.env.REACT_APP_MEDIUM_MOVES)
-export const hardMoves = Number(process.env.REACT_APP_HARD_MOVES)
+export const easyWidth = 10
+export const easyHealth = 100
+export const easyMoves = 40
+
+export const mediumWidth = 26
+export const mediumHealth = 220
+export const mediumMoves = 100
+
+export const hardWidth = 50
+export const hardHealth = 450
+export const hardMoves = 200
 
 //define types of squares
 export const squareDefinitions: SquareDefinitions = {

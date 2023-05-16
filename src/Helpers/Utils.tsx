@@ -148,5 +148,9 @@ export function findFormErrors(form: any, errors: any) {
     return newErrors;
 }
 
+export function classList(classes: string[]): string {
+    return classes.join(' ')
+}
+
 
 

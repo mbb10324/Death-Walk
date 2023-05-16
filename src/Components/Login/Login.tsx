@@ -1,7 +1,7 @@
 import CreateAccount from "../CreateAccount/CreateAccount";
 import { useNavigate } from "react-router-dom";
 import { useLazyQuery, useQuery } from "@apollo/client";
-import { useEffect, useState, } from 'react';
+import { useState, } from 'react';
 import { LOGIN, TOKEN } from "../../Api/Quieries";
 import skull from '../../images/skull.png';
 import Form from "react-bootstrap/Form";
@@ -30,6 +30,7 @@ function Login() {
             if (tokenData.token !== null) { navigate('/') }
         }
     });
+    console.log(tokenData)
 
     //called when a user tries to login
     /**********************************************************************************************/

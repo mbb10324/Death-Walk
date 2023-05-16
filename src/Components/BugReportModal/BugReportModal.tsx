@@ -1,6 +1,6 @@
 import './BugReportModal.css';
 import React, { useState } from 'react';
-import { Modal, Form } from 'react-bootstrap';
+import { classList } from '../../Helpers/Utils';
 
 export default function BugReportButton() {
     const [formFields, setFormFields] = useState({ title: '', description: '', email: '' }); //holds form entries
@@ -11,67 +11,125 @@ export default function BugReportButton() {
         event.preventDefault();
         //in place of this console log an api can be called to send an email to the app owner
         console.log(formFields);
+        setFormFields({ title: '', description: '', email: '' });
         setShowBugReport(false);
-    };
-
-    //sets state with form field entries
-    function bugFormInput(event: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target;
-        setFormFields((prevFormData) => ({ ...prevFormData, [name]: value, }));
     };
 
     return (
         <>
-            {/* WHOLE COMPONENT CUSTOM CSS*/}
-            <button className='reportBugBtn' onClick={() => setShowBugReport(true)}>Report Bugs</button>
-            <Modal show={showBugReport}>
-                <Modal.Header>
-                    <Modal.Title>Report a bug</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={submitBugs} className='bugForm'>
-                        <Form.Group controlId='formBasicTitle'>
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control
-                                type='text'
-                                placeholder='Enter title'
-                                name='title'
+            <button className={classList([
+                'text-xs w-[12vw]',
+                'h-[3vw]',
+                'mt-[1vw]',
+                'mb-[1vw]',
+                'bg-[rgb(255,165,0)]',
+                'border-[1px]',
+                'border-zinc-900',
+                'rounded-3xl',
+                'transition-all',
+                'duration-500',
+                'ease-[cubic-bezier(0.79,-1.00,0.37,2.00)]',
+                'hover:bg-zinc-900',
+                'hover:text-white',
+                'hover:scale-125',
+            ])} onClick={() => setShowBugReport(!showBugReport)}>Report Bugs</button>
+
+            {showBugReport &&
+                <div
+                    className={classList([
+                        'fixed',
+                        'top-0',
+                        'left-0',
+                        'w-screen',
+                        'h-screen',
+                        'flex',
+                        'items-center',
+                        'justify-center',
+                        'z-50',
+                        'bg-black',
+                        'bg-opacity-50',
+                        'animate-[fadeIn_.1s_linear]'
+                    ])}>
+                    <div className={classList([
+                        'bg-zinc-900',
+                        'border-[1px]',
+                        'border-black',
+                        'p-4',
+                        'w-[25vw]',
+                        'h-[38vh]',
+                        'rounded-3xl',
+                        'overflow-hidden',
+                        'shadow-2xl',
+                        'shadow-black'
+                    ])}>
+                        <h1 className='text-slate-200 text-sm'>
+                            Report a Bug</h1>
+                        <form className='overflow-hidden h-full' onSubmit={submitBugs}>
+                            <h2 className="text-slate-200 text-xs mt-3">Title</h2>
+
+                            <input
+                                placeholder="Enter title"
+                                className="w-[20vw] text-center placeholder-zine-700 text-white leading-8 bg-zinc-700 rounded-3xl border-[1px] border-lime-500 focus:border-[rgb(255,165,0)] outline-none"
+                                type="text"
                                 value={formFields.title}
-                                onChange={bugFormInput}
-                                required
+                                onChange={(e) => setFormFields({ ...formFields, title: e.target.value })}
                             />
-                        </Form.Group>
-                        <Form.Group controlId='formBasicDescription'>
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control
-                                as='textarea'
-                                rows={3}
-                                placeholder='Enter description'
-                                name='description'
+
+                            <h2 className="text-slate-200 text-xs mt-3">Description</h2>
+
+                            <input
+                                placeholder="Enter description"
+                                className="w-[20vw] text-center placeholder-zine-700 text-white leading-8 bg-zinc-700 rounded-3xl border-[1px] border-lime-500 focus:border-[rgb(255,165,0)] outline-none"
+                                type="textarea"
                                 value={formFields.description}
-                                onChange={bugFormInput}
-                                required
+                                onChange={(e) => setFormFields({ ...formFields, description: e.target.value })}
                             />
-                        </Form.Group>
-                        <Form.Group controlId='formBasicEmail'>
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control
-                                type='email'
-                                placeholder='Enter email'
-                                name='email'
+
+                            <h2 className="text-slate-200 text-xs mt-3">Email</h2>
+
+                            <input
+                                placeholder="Enter email"
+                                className="w-[20vw] text-center placeholder-zine-700 text-white leading-8 bg-zinc-700 rounded-3xl border-[1px] border-lime-500 focus:border-[rgb(255,165,0)] outline-none"
+                                type="text"
                                 value={formFields.email}
-                                onChange={bugFormInput}
-                                required
+                                onChange={(e) => setFormFields({ ...formFields, email: e.target.value })}
                             />
-                            <Form.Text className='text-muted'>
-                                We'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-                        <button className='modalBtn mr-5' onClick={() => setShowBugReport(false)}>Close</button> {/* CSS IN ReportModal.css */}
-                        <button className='modalBtn'>Submit</button> {/* CSS IN ReportModal.css */}
-                    </Form>
-                </Modal.Body>
-            </Modal>
+
+                            <button className={classList([
+                                'mr-6',
+                                'text-xs',
+                                'w-[6vw]',
+                                'leading-8',
+                                'mt-4',
+                                'bg-pink-200',
+                                'rounded-3xl',
+                                'text-zinc-900',
+                                'hover:bg-lime-500',
+                                'hover:text-white',
+                                'transition-all',
+                                'duration-500',
+                                'ease-[cubic-bezier(0.79,-1.00,0.37,2.00)]',
+                                'hover:scale-125'
+                            ])} onClick={() => setShowBugReport(false)}>Close</button>
+                            <button className={classList([
+                                'text-xs',
+                                'w-[6vw]',
+                                'leading-8',
+                                'mt-4',
+                                'bg-pink-200',
+                                'rounded-3xl',
+                                'text-zinc-900',
+                                'hover:bg-lime-500',
+                                'hover:text-white',
+                                'transition-all',
+                                'duration-500',
+                                'ease-[cubic-bezier(0.79,-1.00,0.37,2.00)]',
+                                'hover:scale-125'
+                            ])}>Submit</button>
+                        </form>
+                    </div>
+                </div>
+            }
         </>
     );
 };

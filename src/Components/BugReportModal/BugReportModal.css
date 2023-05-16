@@ -1,28 +1,8 @@
-.btn-close {
-    background-color: var(--White) !important;
-    border-radius: 50% !important;
-    margin-left: 30px !important;
-    color: var(--White) !important;
-}
-
-.bugForm .form-control {
-    background-color: rgb(51, 51, 51) !important;
-    color: white !important;
-    border: 1px solid var(--RedBrown)
-}
-
-.bugForm .form-control:focus {
-    outline: none !important;
-    box-shadow: none !important;
-    border: 1px solid var(--Orange) !important;
-}
-
-.reportBugBtn {
+/* .reportBugBtn {
     border: var(--main-Border);
     font-size: 1.5vw;
     width: 50%;
     height: 3vw;
-    margin-bottom: 1vw;
     border-radius: 3rem;
     background-color: var(--Orange);
     overflow: hidden;
@@ -33,4 +13,24 @@
     transform: scale(1.2);
     color: var(--White);
     background-color: var(--Black);
-}
+} */
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* .my-thing {
+    @apply flex;
+    @apply bg-white-200;
+} */
+/* @layer components {
+    .modalSubmitBtn {
+        @apply text-xs w-[6vw] leading-8 mt-4 bg-pink-200 rounded-3xl text-zinc-900 hover: bg-lime-500 hover:text-white transition-custom;
+    }
+} */
+
+/* .modalSubmitBtn {
+    @apply text-xs w-[6vw] leading-8 mt-4 bg-pink-200 rounded-3xl text-zinc-900 hover: bg-lime-500 hover:text-white transition-custom;
+} */
+
+/* ['modalBtn text-xs w-[6vw] leading-8 mt-4 bg-pink-200 rounded-3xl text-zinc-900 hover:bg-lime-500 hover:text-white transition-custom'] */

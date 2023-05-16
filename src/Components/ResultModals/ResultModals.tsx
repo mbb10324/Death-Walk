@@ -1,5 +1,5 @@
 import './ResultModals.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import fine from '../../images/fine.gif';
 import fire from '../../images/fire.gif';
@@ -14,59 +14,64 @@ type Props = {
 }
 
 export default function ResultModals(props: Props) {
-    const { showWin, showLose, setShowWin, setShowLose } = props; //define props
+    const { showWin, showLose, setShowWin, setShowLose, clickedRestart } = props; //define props
+    const modalShown = showLose || showWin
 
-    //func to close loser modal
-    function closeLose() {
-        props.clickedRestart()
-        setShowLose(!showLose);
+    //listener for enter button
+    useEffect(() => {
+        window.addEventListener('keyup', enterKey);
+        return () => { window.removeEventListener('keyup', enterKey) }
+    })
+
+    //close modal on button click
+    function closeResultModal() {
+        clickedRestart();
+        setShowWin(false);
+        setShowLose(false);
     };
 
-    //func to close winner modal
-    function closeWin() {
-        props.clickedRestart()
-        setShowWin(!showWin);
-    };
+    //close modal when enter pressed
+    function enterKey(event: any) {
+        if (event.key === 'Enter' && modalShown === true) {
+            clickedRestart();
+            setShowWin(false);
+            setShowLose(false);
+        }
+    }
 
     //pick a random gif to show the user
     function randomDeathGif() {
-        const options = Array(3).fill(fire);
-        options.push(fine);
-        const chooseOne = options[Math.floor(Math.random() * options.length)];
-        return chooseOne;
+        if (showLose === true) {
+            const options = Array(3).fill(fire);
+            options.push(fine);
+            const chooseOne = options[Math.floor(Math.random() * options.length)];
+            return chooseOne;
+        }
     };
 
     return (
         <div className='modals'>
-            {/* loser modal */}
+            {/* winner or loser modal */}
             <Modal
                 className='custom-position'
-                show={showLose}
+                show={showLose || showWin}
                 backdrop='static'
                 keyboard={false}
             >
                 <Modal.Header>
-                    <Modal.Title>Sorry, You Died!!!</Modal.Title>
+                    <Modal.Title>{showWin ? 'Congrats, You Win!!!' : 'Sorry, You Died!!!'}</Modal.Title>
                 </Modal.Header>
-                <button className='modalBtn' onClick={closeLose}>
-                    Restart
-                </button>
-                <img src={randomDeathGif()} alt='' />
-            </Modal>
-            {/* winner modal */}
-            <Modal
-                className='custom-position'
-                show={showWin}
-                backdrop='static'
-                keyboard={false}
-            >
-                <Modal.Header>
-                    <Modal.Title>Congrats, You Win!!!</Modal.Title>
-                </Modal.Header>
-                <button className='modalBtn' onClick={closeWin}>
-                    Restart
-                </button>
-                <img src={winner} alt='' />
+                <div className='restart'>
+                    <button className='modalBtn' onClick={closeResultModal}>
+                        Restart
+                    </button>
+                    <p>or press ENTER</p>
+                </div>
+                {modalShown ?
+                    <img src={showWin ? winner : randomDeathGif()} alt='' />
+                    :
+                    <div className='imgPlaceholder'></div>
+                }
             </Modal>
         </div>
     )
