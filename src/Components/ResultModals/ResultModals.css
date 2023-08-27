@@ -1,66 +1,77 @@
 .modal-content {
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    border: 1px solid black !important;
-    border-radius: 3rem !important;
-    box-shadow: 0 0 5px var(--Black) !important;
-    background-color: var(--Black) !important;
-    font-family: 'CourierPrime-Regular' !important;
-    color: var(--White) !important;
-    width: 500px !important;
+	justify-content: center !important;
+	align-items: center !important;
+	text-align: center !important;
+	border: 1px solid black !important;
+	border-radius: 3rem !important;
+	box-shadow: 0 0 5px var(--Black) !important;
+	background-color: var(--Black) !important;
+	font-family: "CourierPrime-Regular" !important;
+	color: var(--White) !important;
+	width: 500px !important;
 }
 
 .modal-header {
-    border-bottom: 1px solid var(--RedBrown) !important;
+	border-bottom: 1px solid var(--RedBrown) !important;
 }
 
 .custom-position {
-    margin-top: -50px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+	margin-top: -50px !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+}
+
+@media screen and (max-width: 640px) {
+	.modal-content {
+		width: 100% !important;
+		border-radius: 0 !important;
+		overflow: hidden !important;
+	}
+	.modal-content img {
+		margin-bottom: 0 !important;
+	}
 }
 
 .modalBtn {
-    /* width: 100px; */
-    /* height: 35px; */
-    /* margin-top: 20px;
-    margin-bottom: 20px; */
-    /* border: var(--main-Border); */
-    /* background-color: var(--Pink); */
-    /* border-radius: 3rem; */
-    /* transition: all .5s cubic-bezier(.79, -1, .37, 2); */
-    /* color: var(--Black); */
+	width: 100px;
+	height: 35px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: var(--main-Border);
+	background-color: var(--Pink);
+	border-radius: 3rem;
+	transition: all 0.5s cubic-bezier(0.79, -1, 0.37, 2);
+	color: var(--Black);
 }
 
 .modalBtn:hover {
-    /* background-color: var(--RedBrown); */
-    /* color: var(--White); */
-    /* transform: scale(1.2); */
+	background-color: var(--RedBrown);
+	color: var(--White);
+	transform: scale(1.2);
 }
 
 .modal-content img {
-    width: 300px;
-    height: 170px;
-    margin-bottom: 20px;
+	width: 300px;
+	height: 170px;
+	margin-bottom: 20px;
 }
 
 .imgPlaceholder {
-    width: 300px;
-    height: 170px;
-    margin-bottom: 20px;
+	width: 300px;
+	height: 170px;
+	margin-bottom: 20px;
 }
 
 .restart {
-    width: 100%;
-    display: flex;
-    float: left;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+	width: 100%;
+	display: flex;
+	float: left;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
 }
 
 .restart p {
-    margin-left: 15px
+	margin-left: 15px;
 }

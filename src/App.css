@@ -1,7 +1,7 @@
 * {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
 }
 
 @tailwind base;
@@ -9,45 +9,55 @@
 @tailwind utilities;
 
 :root {
-    --main-Border: 1px solid #252525;
-    --Black: #252525;
-    --White: white;
-    --DarkBlue: #0444ab;
-    --LightBlue: #639bf5;
-    --Pink: pink;
-    --Orange: orange;
-    --RedBrown: brown;
+	--main-Border: 1px solid #252525;
+	--Black: #252525;
+	--White: white;
+	--DarkBlue: #0444ab;
+	--LightBlue: #639bf5;
+	--Pink: pink;
+	--Orange: orange;
+	--RedBrown: brown;
 }
 
 .App {
-    display: relative;
-    background: linear-gradient(to bottom,
-            var(--Pink) 0%, var(--Pink) 35%,
-            var(--Orange) 35%, var(--Orange) 68%,
-            var(--RedBrown) 68%, var(--RedBrown) 100%) repeat;
-    font-family: 'CourierPrime-Regular';
-    color: var(--Black);
-    height: 100vh;
-    min-height: 100%;
-    width: 100vw;
+	display: relative;
+	background: linear-gradient(
+			to bottom,
+			var(--Pink) 0%,
+			var(--Pink) 35%,
+			var(--Orange) 35%,
+			var(--Orange) 68%,
+			var(--RedBrown) 68%,
+			var(--RedBrown) 100%
+		)
+		repeat;
+	font-family: "CourierPrime-Regular";
+	color: var(--Black);
+	height: 100vh;
+	min-height: 100%;
+	width: 100vw;
 }
 
 @font-face {
-    font-family: 'CourierPrime-Bold';
-    src: url(./fonts/CourierPrime-Bold.ttf) format('truetype')
+	font-family: "CourierPrime-Bold";
+	src: url(./fonts/CourierPrime-Bold.ttf) format("truetype");
 }
 
 @font-face {
-    font-family: 'CourierPrime-BoldItalic';
-    src: url(./fonts/CourierPrime-BoldItalic.ttf) format('truetype')
+	font-family: "CourierPrime-BoldItalic";
+	src: url(./fonts/CourierPrime-BoldItalic.ttf) format("truetype");
 }
 
 @font-face {
-    font-family: 'CourierPrime-Italic';
-    src: url(./fonts/CourierPrime-Italic.ttf) format('truetype')
+	font-family: "CourierPrime-Italic";
+	src: url(./fonts/CourierPrime-Italic.ttf) format("truetype");
 }
 
 @font-face {
-    font-family: 'CourierPrime-Regular';
-    src: url(./fonts/CourierPrime-Regular.ttf) format('truetype')
+	font-family: "CourierPrime-Regular";
+	src: url(./fonts/CourierPrime-Regular.ttf) format("truetype");
+}
+
+.no-scroll {
+	overflow: hidden !important;
 }
