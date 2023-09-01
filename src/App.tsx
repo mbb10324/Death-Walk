@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
 	return (
 		<div className="App">
-			<Router>
+			<Router basename="/death-walk">
 				<Routes>
 					<Route path="/" element={<Game />} />
 					{/* <Route path='/Login' element={<Login />} /> */}
