@@ -62,7 +62,8 @@ export default function Game() {
 	let startY = 0; // Declare startY
 
 	// Function to handle the start of a touch
-	function handleTouchStart(event: any) {
+	function handleTouchStart(event: React.TouchEvent<HTMLDivElement>) {
+		event.preventDefault();
 		const appElement = document.querySelector(".App");
 		appElement?.classList.add("no-scroll");
 		startX = event.touches[0].clientX;
@@ -70,7 +71,8 @@ export default function Game() {
 	}
 
 	// Function to handle the end of a touch
-	const handleTouchMove = (event: any) => {
+	const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+		event.preventDefault();
 		event.stopPropagation();
 		const appElement = document.querySelector(".App");
 		appElement?.classList.remove("no-scroll");
@@ -103,7 +105,7 @@ export default function Game() {
 					<Rules />
 				</div>
 				{/* calls the component that builds the squares */}
-				<Grid gameArray={game.grid} handleTouchStart={handleTouchStart} handleTouchMove={handleTouchMove} />
+				<Grid gameArray={game.grid} handleTouchStart={handleTouchStart} handleTouchEnd={handleTouchEnd} />
 				{/* contains the call to score and bug report components; and license/contact info */}
 				<div className="sm:w-1/4 w-full sm:mt-0 mt-16 h-fit text-center items-center flex flex-col order-3">
 					<Score
